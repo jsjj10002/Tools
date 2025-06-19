@@ -1,0 +1,328 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.addSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.inputGroup {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.pageInput {
+  flex: 1;
+  max-width: 200px;
+  padding: 0.8rem 1rem;
+  border: 2px solid var(--color-border);
+  border-radius: 0.8rem;
+  font-size: 1rem;
+  background: var(--color-background);
+  color: var(--color-text-primary);
+  transition: all 0.3s ease;
+}
+
+.pageInput:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  transform: translateY(-1px);
+}
+
+.addButton {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.2rem;
+  border-radius: 0.8rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+  white-space: nowrap;
+}
+
+.addButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.addButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+}
+
+.currentPageButton {
+  background: linear-gradient(135deg, #48cae4 0%, #0077b6 100%);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.2rem;
+  border-radius: 0.8rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(72, 202, 228, 0.3);
+  width: 100%;
+}
+
+.currentPageButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(72, 202, 228, 0.4);
+}
+
+.currentPageButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 2px 8px rgba(72, 202, 228, 0.2);
+}
+
+.splitPointsList {
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+
+.splitPointsList h4 {
+  margin: 0 0 1rem 0;
+  color: var(--color-text-primary);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.emptyState {
+  text-align: center;
+  color: var(--color-text-secondary);
+  padding: 2rem;
+}
+
+.emptyState p {
+  margin: 0.5rem 0;
+}
+
+.hint {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.pointsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.pointItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem 1rem;
+  background: var(--color-background);
+  border: 2px solid var(--color-border);
+  border-radius: 0.8rem;
+  transition: all 0.3s ease;
+}
+
+.pointItem:hover {
+  border-color: var(--color-primary);
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
+.pointIcon {
+  font-size: 1.2rem;
+  opacity: 0.8;
+}
+
+.pointText {
+  flex: 1;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.removeButton {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  color: white;
+  border: none;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.5rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+}
+
+.removeButton:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+}
+
+.visualization {
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+
+.visualization h4 {
+  margin: 0 0 1rem 0;
+  color: var(--color-text-primary);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.pageBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: var(--color-background);
+  border-radius: 0.8rem;
+  border: 1px solid var(--color-border);
+}
+
+.pageBlock {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+}
+
+.pageBlock.normal:hover {
+  transform: scale(1.1);
+  background: var(--color-primary-light);
+  border-color: var(--color-primary);
+}
+
+.pageBlock.splitPoint {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  color: white;
+  border-color: #ff6b6b;
+  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+}
+
+.pageBlock.currentPage {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: #667eea;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+  transform: scale(1.2);
+}
+
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+
+.legendColor {
+  width: 16px;
+  height: 16px;
+  border-radius: 0.3rem;
+  border: 1px solid var(--color-border);
+}
+
+.legendColor.normal {
+  background: var(--color-surface);
+}
+
+.legendColor.split {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+}
+
+.legendColor.current {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.info {
+  background: var(--color-primary-light);
+  border: 2px solid var(--color-primary);
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+
+.infoItem {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+  color: var(--color-text-primary);
+  font-size: 0.9rem;
+}
+
+.infoItem:last-child {
+  margin-bottom: 0;
+}
+
+.infoIcon {
+  font-size: 1.1rem;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .inputGroup {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .pageInput {
+    max-width: none;
+  }
+
+  .pageBar {
+    justify-content: center;
+  }
+
+  .pageBlock {
+    width: 28px;
+    height: 28px;
+    font-size: 0.7rem;
+  }
+
+  .legend {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .pointItem {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .removeButton {
+    align-self: center;
+    width: fit-content;
+  }
+} 

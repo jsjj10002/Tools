@@ -1,11 +1,11 @@
 .container {
-  border: 2px dashed var(--color-border);
-  border-radius: 12px;
-  padding: 40px 20px;
+  border: 3px dashed var(--color-border);
+  border-radius: 16px;
+  padding: 48px 24px;
   text-align: center;
-  background: var(--color-surface);
-  transition: all 0.3s ease;
   cursor: pointer;
+  transition: all 0.3s ease;
+  background: var(--color-surface);
   position: relative;
   overflow: hidden;
 }
@@ -27,22 +27,16 @@
 
 .container:hover:not(.disabled) {
   border-color: var(--color-primary);
-  background: var(--color-background);
+  background: var(--color-surface-hover);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.2);
 }
 
 .dragActive {
   border-color: var(--color-primary) !important;
-  background: linear-gradient(135deg, 
-    var(--color-primary-light) 0%, 
-    rgba(102, 126, 234, 0.1) 100%) !important;
+  background: var(--color-primary-light) !important;
   transform: scale(1.02);
-  box-shadow: 0 12px 30px rgba(102, 126, 234, 0.2);
-}
-
-.dragActive .content {
-  transform: scale(1.05);
+  box-shadow: 0 12px 32px rgba(102, 126, 234, 0.3);
 }
 
 .disabled {
@@ -55,77 +49,66 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
-  transition: transform 0.3s ease;
+  gap: 20px;
   position: relative;
   z-index: 1;
 }
 
 .icon {
-  font-size: 48px;
-  opacity: 0.7;
-  transition: all 0.3s ease;
+  font-size: 3rem;
+  margin-bottom: 8px;
+  opacity: 0.8;
   animation: float 3s ease-in-out infinite;
 }
 
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-6px); }
-}
-
-.container:hover .icon {
-  transform: scale(1.1);
-  opacity: 1;
+  50% { transform: translateY(-8px); }
 }
 
 .text {
-  color: var(--color-text);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .mainText {
-  font-size: 18px;
+  font-size: 1.25rem;
   font-weight: 600;
-  margin-bottom: 8px;
   color: var(--color-text-primary);
 }
 
 .subText {
-  font-size: 14px;
+  font-size: 0.95rem;
   color: var(--color-text-secondary);
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 .dragText {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 1.25rem;
+  font-weight: 700;
   color: var(--color-primary);
   animation: pulse 1.5s ease-in-out infinite;
 }
 
 @keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.8;
-    transform: scale(1.05);
-  }
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
 }
 
 .uploadBtn {
+  padding: 12px 32px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-size: 16px;
+  border-radius: 25px;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
   position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
 .uploadBtn::before {
@@ -153,32 +136,30 @@
 }
 
 .uploadBtn:disabled {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
+  transform: none !important;
 }
 
-/* 반응형 */
 @media (max-width: 768px) {
   .container {
-    padding: 30px 15px;
+    padding: 32px 16px;
   }
   
   .icon {
-    font-size: 36px;
+    font-size: 2.5rem;
   }
   
   .mainText {
-    font-size: 16px;
+    font-size: 1.1rem;
   }
   
   .subText {
-    font-size: 13px;
+    font-size: 0.9rem;
   }
   
   .uploadBtn {
-    padding: 10px 20px;
-    font-size: 14px;
+    padding: 10px 24px;
+    font-size: 0.95rem;
   }
-}
+} 

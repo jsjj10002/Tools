@@ -1,0 +1,234 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: var(--color-background);
+  border: 2px solid var(--color-border);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  cursor: grab;
+  position: relative;
+}
+
+.container:hover:not(.loading) {
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+  transform: translateY(-2px);
+}
+
+.container:active {
+  cursor: grabbing;
+}
+
+.dragging {
+  opacity: 0.7;
+  transform: rotate(3deg) scale(1.05);
+  z-index: 1000;
+  cursor: grabbing;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.dragOver {
+  border-color: var(--color-primary) !important;
+  background: var(--color-primary-light);
+  transform: scale(1.02);
+}
+
+.loading {
+  opacity: 0.8;
+  pointer-events: none;
+  cursor: wait;
+}
+
+.dragHandle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px;
+  color: var(--color-text-secondary);
+  user-select: none;
+}
+
+.dragIcon {
+  font-size: 1.2rem;
+  font-weight: bold;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.container:hover .dragIcon {
+  opacity: 1;
+  color: var(--color-primary);
+}
+
+.index {
+  font-size: 0.8rem;
+  font-weight: 700;
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  padding: 4px 8px;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  min-width: 24px;
+  text-align: center;
+}
+
+.thumbnail {
+  width: 60px;
+  height: 80px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.placeholderThumbnail {
+  font-size: 2rem;
+  opacity: 0.6;
+  color: var(--color-text-secondary);
+}
+
+.info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.fileName {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+
+.fileDetails {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.pageCount {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  background: var(--color-surface);
+  padding: 4px 8px;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  font-weight: 500;
+}
+
+.fileSize {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.loadingIndicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--color-border);
+  border-top: 2px solid var(--color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.removeBtn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: 2px solid transparent;
+}
+
+.removeBtn:hover {
+  background: #fee;
+  color: #dc2626;
+  border-color: #f87171;
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .container {
+    gap: 12px;
+    padding: 12px;
+  }
+  
+  .dragHandle {
+    display: none;
+  }
+  
+  .thumbnail {
+    width: 50px;
+    height: 65px;
+  }
+  
+  .placeholderThumbnail {
+    font-size: 1.5rem;
+  }
+  
+  .fileName {
+    font-size: 0.9rem;
+  }
+  
+  .fileDetails {
+    gap: 8px;
+  }
+  
+  .pageCount,
+  .fileSize {
+    font-size: 0.8rem;
+  }
+  
+  .removeBtn {
+    width: 28px;
+    height: 28px;
+    font-size: 1rem;
+  }
+} 

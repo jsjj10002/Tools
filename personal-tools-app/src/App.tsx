@@ -7,6 +7,8 @@ import FileTools from '@/pages/FileTools/FileTools';
 import ImageTools from '@/pages/ImageTools/ImageTools';
 import VideoTools from '@/pages/VideoTools/VideoTools';
 import PdfToImage from '@/pages/PdfTools/PdfToImage/PdfToImage';
+import PdfMerge from '@/pages/PdfTools/PdfMerge/PdfMerge';
+import PdfSplit from '@/pages/PdfTools/PdfSplit/PdfSplit';
 import '@/styles/globals.css';
 
 function App() {
@@ -40,6 +42,8 @@ function App() {
           <Route path="/image-tools" element={<ImageTools />} />
           <Route path="/video-tools" element={<VideoTools />} />
           <Route path="/pdf-to-image" element={<PdfToImage />} />
+          <Route path="/pdf-merge" element={<PdfMerge />} />
+          <Route path="/pdf-split" element={<PdfSplit />} />
         </Routes>
       </Layout>
     </Router>

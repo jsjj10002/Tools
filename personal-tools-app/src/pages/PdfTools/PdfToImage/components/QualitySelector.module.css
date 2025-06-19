@@ -1,9 +1,15 @@
 .container {
-  background: var(--surface);
-  border: 1px solid var(--border);
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
   border-radius: 1rem;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.container:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.15);
 }
 
 .section {
@@ -17,8 +23,16 @@
 .title {
   font-size: 1.2rem;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--color-text-primary);
   margin: 0 0 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.title::before {
+  content: '⚙️';
+  font-size: 1.1rem;
 }
 
 .optionsGrid {
@@ -29,25 +43,41 @@
 
 .option {
   position: relative;
-  background: var(--surface-secondary);
-  border: 2px solid var(--border);
+  background: var(--color-background);
+  border: 2px solid var(--color-border);
   border-radius: 0.8rem;
   padding: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
   display: block;
+  overflow: hidden;
+}
+
+.option::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.option:hover::before {
+  left: 100%;
 }
 
 .option:hover {
-  border-color: var(--color-primary-light);
-  background: var(--surface-hover);
+  border-color: var(--color-primary);
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
 }
 
 .option.selected {
   border-color: var(--color-primary);
   background: var(--color-primary-light);
-  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
 .radioInput {
@@ -61,6 +91,8 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+  position: relative;
+  z-index: 1;
 }
 
 .optionIcon {
@@ -75,7 +107,7 @@
 .optionLabel {
   font-size: 1rem;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--color-text-primary);
   margin-bottom: 0.3rem;
   display: flex;
   align-items: center;
@@ -93,23 +125,37 @@
 
 .optionDescription {
   font-size: 0.85rem;
-  color: var(--text-secondary);
+  color: var(--color-text-secondary);
   line-height: 1.4;
 }
 
 .summary {
-  background: var(--surface-secondary);
-  border: 1px solid var(--border);
+  background: var(--color-background);
+  border: 2px solid var(--color-border);
   border-radius: 0.8rem;
   padding: 1rem;
   margin-top: 1.5rem;
+  transition: all 0.2s ease;
+}
+
+.summary:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-1px);
 }
 
 .summary h4 {
   font-size: 1rem;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--color-text-primary);
   margin: 0 0 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.summary h4::before {
+  content: '📋';
+  font-size: 1rem;
 }
 
 .summaryContent {
@@ -126,18 +172,18 @@
 
 .summaryLabel {
   font-size: 0.9rem;
-  color: var(--text-secondary);
+  color: var(--color-text-secondary);
   font-weight: 500;
 }
 
 .summaryValue {
   font-size: 0.9rem;
-  color: var(--text-primary);
+  color: var(--color-primary);
   font-weight: 600;
-  background: var(--surface);
+  background: var(--color-primary-light);
   padding: 0.2rem 0.6rem;
   border-radius: 0.4rem;
-  border: 1px solid var(--border);
+  border: 1px solid var(--color-primary);
 }
 
 /* 선택된 옵션 체크 표시 */
@@ -156,6 +202,7 @@
   justify-content: center;
   font-size: 0.8rem;
   font-weight: bold;
+  z-index: 2;
 }
 
 /* 반응형 디자인 */

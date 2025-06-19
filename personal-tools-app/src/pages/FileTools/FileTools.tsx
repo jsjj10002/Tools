@@ -26,7 +26,7 @@ export default function FileTools() {
       description: '여러 PDF 파일을 하나로 결합합니다. 드래그앤드롭으로 순서 조정, 구분선으로 파일 분할 가능',
       icon: '📄🔗📄',
       path: '/pdf-merge',
-      status: 'coming-soon'
+      status: 'available'
     },
     {
       id: 'pdf-split',
@@ -34,7 +34,7 @@ export default function FileTools() {
       description: 'PDF 파일을 여러 파일로 분할합니다. 구분 페이지 설정으로 원하는 개수만큼 분할',
       icon: '📄✂️📄',
       path: '/pdf-split',
-      status: 'coming-soon'
+      status: 'available'
     },
     {
       id: 'text-encoding',

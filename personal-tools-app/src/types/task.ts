@@ -50,3 +50,24 @@ export interface ImageProcessConfig {
   format?: 'png' | 'jpg' | 'webp' | 'avif';
   outputPath: string;
 }
+
+export interface PdfMergeConfig {
+  outputFileName: string;
+  outputPath: string;
+  createSeparateFiles: boolean; // 구분선으로 여러 파일 생성 여부
+  separatorIndices: number[]; // 구분선 위치 (파일 인덱스)
+}
+
+export interface PdfSplitConfig {
+  outputPath: string;
+  splitPages: number[]; // 분할할 페이지 번호들
+  outputFilePrefix: string;
+}
+
+export interface MergeablePdf {
+  file: File;
+  id: string;
+  totalPages: number;
+  thumbnailUrl?: string;
+  isLoaded: boolean;
+}

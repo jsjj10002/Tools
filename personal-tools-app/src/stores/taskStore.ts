@@ -42,11 +42,16 @@ export const useTaskStore = create<TaskStore>()(
           status: 'pending'
         };
         
+        console.log(`[TaskStore] addTask: 새 작업 생성`, { id, type: task.type, filename: task.filename });
+        
         set((state) => {
           const newTasks = [...state.tasks, task];
+          const newActiveCount = calculateActiveTasksCount(newTasks);
+          console.log(`[TaskStore] 작업 추가 후 activeTasksCount: ${state.activeTasksCount} → ${newActiveCount}`);
+          console.log(`[TaskStore] 현재 작업 목록:`, newTasks.map(t => ({ id: t.id, status: t.status, progress: t.progress })));
           return {
             tasks: newTasks,
-            activeTasksCount: calculateActiveTasksCount(newTasks)
+            activeTasksCount: newActiveCount
           };
         });
         
@@ -54,72 +59,125 @@ export const useTaskStore = create<TaskStore>()(
       },      
       updateTask: (id, updates) => {
         console.log(`[TaskStore] updateTask: ${id}`, updates);
+        
+        let shouldScheduleRemoval = false;
+        
         set((state) => {
-          const newTasks = state.tasks.map(task =>
-            task.id === id ? { ...task, ...updates } : task
-          );
+          const taskIndex = state.tasks.findIndex(task => task.id === id);
+          if (taskIndex === -1) {
+            console.log(`[TaskStore] 업데이트할 작업 ${id}을 찾을 수 없음`);
+            return state;
+          }
+          
+          const newTasks = [...state.tasks];
+          const oldTask = newTasks[taskIndex];
+          const updatedTask = { ...oldTask, ...updates };
+          newTasks[taskIndex] = updatedTask;
+          
           const newActiveCount = calculateActiveTasksCount(newTasks);
           console.log(`[TaskStore] activeTasksCount: ${state.activeTasksCount} → ${newActiveCount}`);
+          
+          // 완료 상태로 변경되었을 때만 제거 예약
+          if ((updates.status === 'completed' || updates.status === 'error') && 
+              oldTask.status !== 'completed' && oldTask.status !== 'error') {
+            shouldScheduleRemoval = true;
+          }
+          
           return {
             tasks: newTasks,
             activeTasksCount: newActiveCount
           };
         });
         
-        // 완료된 작업을 3초 후 자동 제거
-        if (updates.status === 'completed' || updates.status === 'error') {
-          console.log(`[TaskStore] 작업 ${id} 완료, 3초 후 자동 제거 예약`);
+        // 완료된 작업을 2초 후 자동 제거 (중복 방지)
+        if (shouldScheduleRemoval) {
+          console.log(`[TaskStore] 작업 ${id} 완료, 2초 후 자동 제거 예약`);
           setTimeout(() => {
             console.log(`[TaskStore] 작업 ${id} 자동 제거 실행`);
-            get().removeTask(id);
-          }, 3000);
+            const currentTask = get().getTaskById(id);
+            if (currentTask) {
+              console.log(`[TaskStore] 작업 ${id} 현재 상태: ${currentTask.status}, 진행률: ${currentTask.progress}%`);
+              get().removeTask(id);
+            } else {
+              console.log(`[TaskStore] 작업 ${id} 이미 제거됨`);
+            }
+          }, 2000);
         }
       },
       
       updateTaskProgress: (progress) => {
         const { taskId, progress: progressValue } = progress;
         console.log(`[TaskStore] updateTaskProgress: ${taskId}, ${progressValue}%`);
+        
+        let shouldScheduleRemoval = false;
+        
         set((state) => {
-          const newTasks = state.tasks.map(task => {
-            if (task.id === taskId) {
-              const isCompleted = progressValue === 100;
-              const updatedTask = { 
-                ...task, 
-                progress: progressValue,
-                status: (isCompleted ? 'completed' : 'processing') as TaskStatus,
-                endTime: isCompleted ? Date.now() : task.endTime
-              };
-              if (isCompleted) {
-                console.log(`[TaskStore] 작업 ${taskId} 100% 완료로 상태 변경`);
-              }
-              return updatedTask;
-            }
-            return task;
-          });
+          const taskIndex = state.tasks.findIndex(task => task.id === taskId);
+          if (taskIndex === -1) {
+            console.log(`[TaskStore] 진행률 업데이트할 작업 ${taskId}을 찾을 수 없음`);
+            return state;
+          }
+          
+          const newTasks = [...state.tasks];
+          const oldTask = newTasks[taskIndex];
+          const isCompleted = progressValue === 100;
+          
+          const updatedTask = { 
+            ...oldTask, 
+            progress: progressValue,
+            status: (isCompleted ? 'completed' : 'processing') as TaskStatus,
+            endTime: isCompleted ? Date.now() : oldTask.endTime
+          };
+          
+          newTasks[taskIndex] = updatedTask;
+          
+          if (isCompleted && oldTask.status !== 'completed') {
+            console.log(`[TaskStore] 작업 ${taskId} 100% 완료로 상태 변경`);
+            shouldScheduleRemoval = true;
+          }
+          
           const newActiveCount = calculateActiveTasksCount(newTasks);
           console.log(`[TaskStore] activeTasksCount: ${state.activeTasksCount} → ${newActiveCount}`);
+          
           return {
             tasks: newTasks,
             activeTasksCount: newActiveCount
           };
         });
         
-        // 100% 완료 시 3초 후 자동 제거
-        if (progressValue === 100) {
-          console.log(`[TaskStore] 작업 ${taskId} 100% 완료, 3초 후 자동 제거 예약`);
+        // 100% 완료 시 2초 후 자동 제거 (중복 방지)
+        if (shouldScheduleRemoval) {
+          console.log(`[TaskStore] 작업 ${taskId} 100% 완료, 2초 후 자동 제거 예약`);
           setTimeout(() => {
             console.log(`[TaskStore] 작업 ${taskId} 자동 제거 실행`);
-            get().removeTask(taskId);
-          }, 3000);
+            const currentTask = get().getTaskById(taskId);
+            if (currentTask) {
+              console.log(`[TaskStore] 작업 ${taskId} 현재 상태: ${currentTask.status}, 진행률: ${currentTask.progress}%`);
+              get().removeTask(taskId);
+            } else {
+              console.log(`[TaskStore] 작업 ${taskId} 이미 제거됨`);
+            }
+          }, 2000);
         }
       },
       
       removeTask: (id) => {
+        console.log(`[TaskStore] removeTask 호출: ${id}`);
         set((state) => {
+          const taskToRemove = state.tasks.find(task => task.id === id);
+          if (taskToRemove) {
+            console.log(`[TaskStore] 작업 ${id} 제거됨 (상태: ${taskToRemove.status}, 진행률: ${taskToRemove.progress}%)`);
+          } else {
+            console.log(`[TaskStore] 제거할 작업 ${id}을 찾을 수 없음`);
+          }
+          
           const newTasks = state.tasks.filter(task => task.id !== id);
+          const newActiveCount = calculateActiveTasksCount(newTasks);
+          console.log(`[TaskStore] 작업 제거 후 activeTasksCount: ${state.activeTasksCount} → ${newActiveCount}`);
+          
           return {
             tasks: newTasks,
-            activeTasksCount: calculateActiveTasksCount(newTasks)
+            activeTasksCount: newActiveCount
           };
         });
       },

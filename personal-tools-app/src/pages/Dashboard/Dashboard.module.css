@@ -1,0 +1,131 @@
+.hero {
+    text-align: center;
+    margin-bottom: var(--spacing-xxl);
+  }
+  
+  .title {
+    font-size: var(--font-size-3xl);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .subtitle {
+    font-size: var(--font-size-lg);
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .offlineNotice {
+    background-color: rgba(255, 193, 7, 0.1);
+    color: var(--color-warning);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255, 193, 7, 0.3);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .toolGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-xl);
+  }
+  
+  .toolCard {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    transition: all var(--transition-normal);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .toolCard:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .toolContent {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    padding: var(--spacing-xl);
+    height: 100%;
+    transition: background-color var(--transition-fast);
+  }
+  
+  .toolContent:hover {
+    background-color: var(--bg-secondary);
+  }
+  
+  .toolContent.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  .toolContent.unavailable {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .toolIcon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .toolTitle {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .toolDescription {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .toolStatus {
+    margin-top: auto;
+  }
+  
+  .offlineSupported {
+    color: var(--color-success);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+  }
+  
+  .onlineRequired {
+    color: var(--color-info);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+  }
+  
+  .comingSoon {
+    background-color: var(--color-secondary);
+    color: white;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    display: inline-block;
+  }
+  
+  /* 반응형 */
+  @media (max-width: 768px) {
+    .toolGrid {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-md);
+    }
+    
+    .title {
+      font-size: var(--font-size-2xl);
+    }
+    
+    .subtitle {
+      font-size: var(--font-size-base);
+    }
+  }

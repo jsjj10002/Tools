@@ -1,0 +1,398 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# 개인용 도구 웹앱 개발 규칙 (@app.mdc)
+
+## 목차
+- [프로젝트 개요](#프로젝트-개요)
+- [기술 스택](#기술-스택)
+- [프로젝트 구조](#프로젝트-구조)
+- [개발 컨벤션](#개발-컨벤션)
+- [컴포넌트 설계 원칙](#컴포넌트-설계-원칙)
+- [상태 관리](#상태-관리)
+- [스타일링 가이드](#스타일링-가이드)
+- [성능 최적화](#성능-최적화)
+- [에러 처리](#에러-처리)
+- [테스트 전략](#테스트-전략)
+- [배포 및 운영](#배포-및-운영)
+
+## 프로젝트 개요
+
+### 목적
+개인적으로 자주 사용하는 도구들을 웹 환경에서 편리하게 접근할 수 있도록 통합한 다기능 웹 애플리케이션
+
+### 핵심 가치
+- **사용자 경험**: 직관적이고 빠른 접근성
+- **확장성**: 새로운 도구 추가가 용이한 구조
+- **성능**: 빠른 로딩과 반응성
+- **안정성**: 에러 처리와 데이터 보호
+
+## 기술 스택
+
+### 필수 기술
+- **Frontend**: React 18+ (함수형 컴포넌트, Hooks)
+- **빌드 도구**: Vite
+- **언어**: TypeScript
+- **스타일링**: CSS Modules 또는 Styled Components
+- **상태 관리**: Zustand 또는 React Context API
+- **라우팅**: React Router DOM
+
+### 추가 고려사항
+- **UI 라이브러리**: Ant Design, Material-UI, 또는 Chakra UI
+- **차트/시각화**: Chart.js, D3.js
+- **유틸리티**: Lodash, date-fns
+- **HTTP 클라이언트**: Axios
+
+## 프로젝트 구조
+
+```
+src/
+├── components/          # 재사용 가능한 컴포넌트
+│   ├── common/         # 공통 컴포넌트
+│   ├── forms/          # 폼 관련 컴포넌트
+│   └── ui/             # UI 기본 컴포넌트
+├── pages/              # 페이지별 컴포넌트
+├── hooks/              # 커스텀 훅
+├── utils/              # 유틸리티 함수
+├── services/           # API 서비스
+├── stores/             # 상태 관리
+├── types/              # TypeScript 타입 정의
+├── styles/             # 전역 스타일
+└── assets/             # 정적 자원
+```
+
+## 개발 컨벤션
+
+### 파일 명명 규칙
+- **컴포넌트**: PascalCase (예: `UserProfile.tsx`)
+- **훅**: camelCase with use prefix (예: `useUserData.ts`)
+- **유틸리티**: camelCase (예: `formatDate.ts`)
+- **상수**: SCREAMING_SNAKE_CASE (예: `API_ENDPOINTS.ts`)
+
+### 변수 명명 규칙
+- **변수/함수**: camelCase, 명확한 의미 전달
+- **상수**: SCREAMING_SNAKE_CASE
+- **인터페이스**: PascalCase with I prefix (예: `IUserData`)
+- **타입**: PascalCase (예: `UserType`)
+
+### 코드 스타일
+```typescript
+// 좋은 예시
+const calculateTotalPrice = (items: CartItem[]): number => {
+  return items.reduce((total, item) => total + item.price * item.quantity, 0);
+};
+
+// 나쁜 예시
+const calc = (items: any) => {
+  let t = 0;
+  for (let i of items) {
+    t += i.p * i.q;
+  }
+  return t;
+};
+```
+
+## 컴포넌트 설계 원칙
+
+### 1. 단일 책임 원칙
+각 컴포넌트는 하나의 명확한 목적을 가져야 한다.
+
+### 2. 합성 패턴 활용
+```typescript
+// 좋은 예시 - 합성 패턴
+<Modal>
+  <Modal.Header>제목</Modal.Header>
+  <Modal.Body>내용</Modal.Body>
+  <Modal.Footer>액션 버튼</Modal.Footer>
+</Modal>
+```
+
+### 3. Props 인터페이스 정의
+```typescript
+interface ButtonProps {
+  children: React.ReactNode;
+  variant?: 'primary' | 'secondary' | 'danger';
+  size?: 'small' | 'medium' | 'large';
+  disabled?: boolean;
+  onClick?: () => void;
+}
+
+const Button: React.FC<ButtonProps> = ({ 
+  children, 
+  variant = 'primary', 
+  size = 'medium',
+  disabled = false,
+  onClick 
+}) => {
+  // 컴포넌트 구현
+};
+```
+
+### 4. 에러 바운더리 적용
+```typescript
+class ErrorBoundary extends React.Component {
+  constructor(props: any) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error('Error caught by boundary:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <h1>문제가 발생했습니다.</h1>;
+    }
+    return this.props.children;
+  }
+}
+```
+
+## 상태 관리
+
+### 로컬 상태 vs 전역 상태
+- **로컬 상태**: 컴포넌트 내부에서만 사용되는 데이터
+- **전역 상태**: 여러 컴포넌트에서 공유되는 데이터
+
+### Zustand 스토어 예시
+```typescript
+interface AppState {
+  user: User | null;
+  theme: 'light' | 'dark';
+  tools: Tool[];
+  setUser: (user: User | null) => void;
+  toggleTheme: () => void;
+  addTool: (tool: Tool) => void;
+}
+
+const useAppStore = create<AppState>((set) => ({
+  user: null,
+  theme: 'light',
+  tools: [],
+  setUser: (user) => set({ user }),
+  toggleTheme: () => set((state) => ({ 
+    theme: state.theme === 'light' ? 'dark' : 'light' 
+  })),
+  addTool: (tool) => set((state) => ({ 
+    tools: [...state.tools, tool] 
+  })),
+}));
+```
+
+## 스타일링 가이드
+
+### CSS 변수 활용
+```css
+:root {
+  --color-primary: #007bff;
+  --color-secondary: #6c757d;
+  --color-success: #28a745;
+  --color-danger: #dc3545;
+  --color-warning: #ffc107;
+  
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  
+  --border-radius: 0.375rem;
+  --box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+```
+
+### 반응형 디자인
+```css
+/* 모바일 퍼스트 접근법 */
+.container {
+  padding: var(--spacing-md);
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: var(--spacing-lg);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}
+```
+
+## 성능 최적화
+
+### 1. 코드 분할
+```typescript
+// 페이지별 lazy loading
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const Tools = lazy(() => import('./pages/Tools'));
+
+function App() {
+  return (
+    <Suspense fallback={<div>로딩 중...</div>}>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/tools" element={<Tools />} />
+      </Routes>
+    </Suspense>
+  );
+}
+```
+
+### 2. 메모이제이션
+```typescript
+// React.memo로 불필요한 리렌더링 방지
+const ExpensiveComponent = React.memo(({ data }: { data: ComplexData }) => {
+  return <div>{/* 복잡한 렌더링 로직 */}</div>;
+});
+
+// useMemo로 계산 비용이 큰 값 캐싱
+const expensiveValue = useMemo(() => {
+  return complexCalculation(data);
+}, [data]);
+
+// useCallback으로 함수 참조 안정화
+const handleClick = useCallback((id: string) => {
+  // 클릭 처리 로직
+}, []);
+```
+
+## 에러 처리
+
+### 1. API 에러 처리
+```typescript
+const apiClient = axios.create({
+  baseURL: process.env.REACT_APP_API_BASE_URL,
+  timeout: 10000,
+});
+
+apiClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      // 인증 에러 처리
+      logout();
+    } else if (error.response?.status >= 500) {
+      // 서버 에러 처리
+      showErrorMessage('서버에 문제가 발생했습니다.');
+    }
+    return Promise.reject(error);
+  }
+);
+```
+
+### 2. 사용자 친화적 에러 메시지
+```typescript
+const ErrorMessage: React.FC<{ error: Error }> = ({ error }) => {
+  const getErrorMessage = (error: Error): string => {
+    if (error.message.includes('Network Error')) {
+      return '인터넷 연결을 확인해주세요.';
+    }
+    if (error.message.includes('timeout')) {
+      return '요청 시간이 초과되었습니다. 다시 시도해주세요.';
+    }
+    return '알 수 없는 오류가 발생했습니다.';
+  };
+
+  return (
+    <div className="error-message">
+      <h3>오류 발생</h3>
+      <p>{getErrorMessage(error)}</p>
+    </div>
+  );
+};
+```
+
+## 테스트 전략
+
+### 1. 단위 테스트
+```typescript
+// 유틸리티 함수 테스트
+describe('formatDate', () => {
+  it('should format date correctly', () => {
+    const date = new Date('2023-12-25');
+    expect(formatDate(date)).toBe('2023-12-25');
+  });
+});
+
+// 컴포넌트 테스트
+describe('Button', () => {
+  it('should call onClick when clicked', () => {
+    const handleClick = jest.fn();
+    render(<Button onClick={handleClick}>클릭</Button>);
+    
+    fireEvent.click(screen.getByText('클릭'));
+    expect(handleClick).toHaveBeenCalledTimes(1);
+  });
+});
+```
+
+### 2. 통합 테스트
+- API 엔드포인트와의 연동 테스트
+- 사용자 플로우 시나리오 테스트
+
+## 배포 및 운영
+
+### 환경 변수 관리
+```bash
+# .env.development
+REACT_APP_API_BASE_URL=http://localhost:3001/api
+REACT_APP_ENV=development
+
+# .env.production
+REACT_APP_API_BASE_URL=https://api.example.com
+REACT_APP_ENV=production
+```
+
+### 빌드 최적화
+```json
+{
+  "scripts": {
+    "build": "vite build",
+    "build:analyze": "vite build && npx vite-bundle-analyzer dist/stats.html",
+    "preview": "vite preview"
+  }
+}
+```
+
+### 로깅 및 모니터링
+```typescript
+const logger = {
+  error: (message: string, error?: Error) => {
+    console.error(`[ERROR] ${message}`, error);
+    // 프로덕션에서는 외부 로깅 서비스로 전송
+  },
+  warn: (message: string) => {
+    console.warn(`[WARN] ${message}`);
+  },
+  info: (message: string) => {
+    console.info(`[INFO] ${message}`);
+  }
+};
+```
+
+## 보안 고려사항
+
+### 1. XSS 방지
+- React의 기본 XSS 보호 활용
+- `dangerouslySetInnerHTML` 사용 시 주의
+- 사용자 입력 데이터 검증
+
+### 2. 민감한 정보 보호
+- API 키는 환경 변수로 관리
+- 클라이언트 사이드에서 민감한 데이터 노출 금지
+- HTTPS 통신 강제
+
+---
+
+이 개발 규칙은 프로젝트 진행에 따라 지속적으로 업데이트되며, 팀원 간 합의를 통해 개선해나간다.

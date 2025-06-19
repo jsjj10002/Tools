@@ -11,6 +11,12 @@
   },
   "dependencies": {
     "clsx": "^2.1.1",
+    "ffmpeg.js": "^4.2.9003",
+    "file-saver": "^2.0.5",
+    "jimp": "^1.6.0",
+    "jszip": "^3.10.1",
+    "papaparse": "^5.5.3",
+    "pdf-lib": "^1.17.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.6.2",

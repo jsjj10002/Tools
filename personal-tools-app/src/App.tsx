@@ -15,17 +15,17 @@ function App() {
     // 온라인 상태 감지
     const handleOnline = () => setOnlineStatus(true);
     const handleOffline = () => setOnlineStatus(false);
-  
+
     window.addEventListener('online', handleOnline);
     window.addEventListener('offline', handleOffline);
-  
+
     return () => {
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
     };
   }, [setOnlineStatus]);
-  
-  // 테마 적용을 별도 useEffect로 분리
+
+  // 테마 적용
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);

@@ -7,14 +7,16 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
+      includeAssets: ['favicon.ico', 'apple-touch-icon.png'],
       manifest: {
         name: '개인용 도구 모음',
         short_name: 'Tools',
-        description: '개인적으로 필요한 기능들을 모아놓은 웹앱',
-        theme_color: '#ffffff',
+        description: '파일, 이미지, 영상 처리를 위한 개인용 웹 도구 모음',
+        theme_color: '#007bff',
         background_color: '#ffffff',
         display: 'standalone',
+        scope: '/',
+        start_url: '/',
         icons: [
           {
             src: 'pwa-192x192.png',
@@ -30,7 +32,7 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
-        maximumFileSizeToCacheInBytes: 10 * 1024 * 1024 // 10MB
+        maximumFileSizeToCacheInBytes: 10 * 1024 * 1024
       }
     })
   ],

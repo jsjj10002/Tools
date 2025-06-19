@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAppStore } from '@/stores/appStore';
+import PWAInstallButton from '@/components/PWAInstallButton/PWAInstallButton';
 import styles from './Layout.module.css';
 
 interface LayoutProps {
@@ -44,6 +45,8 @@ export default function Layout({ children }: LayoutProps) {
             <div className={`${styles.status} ${isOnline ? styles.online : styles.offline}`}>
               {isOnline ? '🟢 온라인' : '🔴 오프라인'}
             </div>
+            
+            <PWAInstallButton />
             
             <button
               onClick={toggleTheme}

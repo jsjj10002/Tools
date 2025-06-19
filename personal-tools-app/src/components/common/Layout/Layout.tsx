@@ -15,10 +15,10 @@ export default function Layout({ children }: LayoutProps) {
   const { isOnline, theme, toggleTheme } = useAppStore();
 
   const navItems = [
-    { path: '/', label: '대시보드' },
-    { path: '/file-tools', label: '파일 도구' },
-    { path: '/image-tools', label: '이미지 도구' },
-    { path: '/video-tools', label: '영상 도구' },
+    { path: '/', label: '홈', icon: '🏠' },
+    { path: '/file-tools', label: '파일 도구', icon: '📁' },
+    { path: '/image-tools', label: '이미지 도구', icon: '🖼️' },
+    { path: '/video-tools', label: '영상 도구', icon: '🎬' },
   ];
 
   return (
@@ -41,7 +41,8 @@ export default function Layout({ children }: LayoutProps) {
                   location.pathname === item.path ? styles.active : ''
                 }`}
               >
-                {item.label}
+                <span className={styles.navIcon}>{item.icon}</span>
+                <span className={styles.navLabel}>{item.label}</span>
               </Link>
             ))}
           </nav>

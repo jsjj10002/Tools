@@ -1,5 +1,5 @@
-import { useCallback, useState } from 'react';
-import { useDropzone, Accept } from 'react-dropzone';
+import { useCallback } from 'react';
+import { useDropzone } from 'react-dropzone';
 import styles from './PdfUploader.module.css';
 
 interface PdfUploaderProps {

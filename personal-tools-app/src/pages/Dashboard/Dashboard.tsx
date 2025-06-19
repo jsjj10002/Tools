@@ -9,15 +9,15 @@ export default function Dashboard() {
     {
       id: 'file-tools',
       title: '파일 처리 도구',
-      description: '텍스트 파일 변환, 압축/해제, 파일 정보 분석',
-      icon: '📄',
+      description: 'PDF 변환, 텍스트 인코딩, 문서 변환, 포맷 변환',
+      icon: '📁',
       path: '/file-tools',
       offline: true,
     },
     {
       id: 'image-tools',
       title: '이미지 처리 도구',
-      description: '이미지 리사이징, 포맷 변환, 압축, PDF 결합',
+      description: '이미지 리사이징, 압축, 포맷 변환, 최적화',
       icon: '🖼️',
       path: '/image-tools',
       offline: true,
@@ -25,7 +25,7 @@ export default function Dashboard() {
     {
       id: 'video-tools',
       title: '영상 처리 도구',
-      description: '영상 변환, 음성 추출, 영상 압축',
+      description: '영상 변환, 음성 추출, 포맷 변환',
       icon: '🎬',
       path: '/video-tools',
       offline: true,
@@ -46,7 +46,7 @@ export default function Dashboard() {
       <div className={styles.hero}>
         <h1 className={styles.title}>개인용 도구 모음</h1>
         <p className={styles.subtitle}>
-          필요한 도구를 선택해서 편리하게 작업하세요
+          모든 작업을 로컬에서 안전하게 처리하는 개인 도구 모음입니다
         </p>
         
         {!isOnline && (
@@ -88,6 +88,21 @@ export default function Dashboard() {
             )}
           </div>
         ))}
+      </div>
+
+      <div className={styles.features}>
+        <div className={styles.featureCard}>
+          <h3>🔒 완전한 개인정보 보호</h3>
+          <p>모든 파일 처리는 브라우저 내에서 로컬로 수행되며, 서버로 전송되지 않습니다.</p>
+        </div>
+        <div className={styles.featureCard}>
+          <h3>⚡ 멀티태스킹 지원</h3>
+          <p>여러 작업을 동시에 진행할 수 있으며, 실시간으로 진행상황을 확인할 수 있습니다.</p>
+        </div>
+        <div className={styles.featureCard}>
+          <h3>📱 반응형 설계</h3>
+          <p>데스크톱부터 모바일까지 모든 기기에서 최적화된 경험을 제공합니다.</p>
+        </div>
       </div>
     </div>
   );

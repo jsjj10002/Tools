@@ -86,7 +86,7 @@ export const useTaskStore = create<TaskStore>()(
               const updatedTask = { 
                 ...task, 
                 progress: progressValue,
-                status: isCompleted ? 'completed' : 'processing',
+                status: (isCompleted ? 'completed' : 'processing') as TaskStatus,
                 endTime: isCompleted ? Date.now() : task.endTime
               };
               if (isCompleted) {

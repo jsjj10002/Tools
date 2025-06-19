@@ -129,6 +129,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
+  margin-bottom: 4rem;
 }
 
 .infoCard {
@@ -157,7 +158,7 @@
   border-radius: 1rem;
   padding: 2rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
 }
 
 .features h2 {
@@ -181,46 +182,24 @@
   font-size: 1rem;
 }
 
-.supportedFormats {
-  background: var(--surface);
-  border: 1px solid var(--border);
+.warning {
+  background: rgba(249, 115, 22, 0.1);
+  border: 1px solid rgba(249, 115, 22, 0.3);
   border-radius: 1rem;
   padding: 2rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-}
-
-.supportedFormats h3 {
-  font-size: 1.5rem;
-  margin-bottom: 2rem;
-  color: var(--text-primary);
   text-align: center;
 }
 
-.formatGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-}
-
-.formatCategory {
-  text-align: center;
-}
-
-.formatCategory h4 {
-  font-size: 1.2rem;
-  color: var(--text-primary);
+.warning h3 {
+  color: rgb(249, 115, 22);
   margin-bottom: 1rem;
+  font-size: 1.2rem;
 }
 
-.formatCategory ul {
-  list-style: none;
-  padding: 0;
-}
-
-.formatCategory li {
+.warning p {
   color: var(--text-secondary);
-  padding: 0.3rem 0;
-  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0;
 }
 
 /* 반응형 디자인 */
@@ -259,10 +238,5 @@
   
   .featureList {
     grid-template-columns: 1fr;
-  }
-  
-  .formatGrid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
   }
 } 

@@ -150,13 +150,15 @@ export default function PdfToImage() {
     setIsProcessing(true);
     
     for (let i = 0; i < processedPdfs.length; i++) {
-      const { file, processor, config } = processedPdfs[i];
+      const { file, config } = processedPdfs[i];
       
       const taskId = addTask({
         type: 'pdf-to-image',
         filename: file.name,
         totalFiles: processedPdfs.length,
         currentFile: i + 1,
+        status: 'pending',
+        progress: 0,
         config
       });
       

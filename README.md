@@ -159,6 +159,6 @@ main              # 프로덕션 브랜치
 
 ---
 
-**Last Updated**: 2024년 6월 19일  
+**Last Updated**: 2025년 6월 19일  
 **Developer**: Personal Project  
 **Status**: 🚧 개발 중

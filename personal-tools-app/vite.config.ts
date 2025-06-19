@@ -1,22 +1,19 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
+import path from 'path'
 
 export default defineConfig({
   plugins: [
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png'],
+      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'pwa-512x512.png'],
       manifest: {
-        name: '개인용 도구 모음',
+        name: 'Personal Tools App',
         short_name: 'Tools',
-        description: '파일, 이미지, 영상 처리를 위한 개인용 웹 도구 모음',
-        theme_color: '#007bff',
-        background_color: '#ffffff',
-        display: 'standalone',
-        scope: '/',
-        start_url: '/',
+        description: 'A collection of useful tools that work offline.',
+        theme_color: '#ffffff',
         icons: [
           {
             src: 'pwa-192x192.png',
@@ -31,17 +28,24 @@ export default defineConfig({
         ]
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,pdf}'],
         maximumFileSizeToCacheInBytes: 10 * 1024 * 1024
       }
     })
   ],
   resolve: {
     alias: {
-      '@': '/src'
+      '@': path.resolve(__dirname, './src')
     }
   },
   server: {
-    port: 3000
+    port: 3001,
+    fs: {
+      allow: ['..']
+    }
+  },
+  assetsInclude: ['**/*.pdf'],
+  build: {
+    target: 'esnext'
   }
 })

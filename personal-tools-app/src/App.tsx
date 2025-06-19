@@ -6,6 +6,7 @@ import Dashboard from '@/pages/Dashboard/Dashboard';
 import FileTools from '@/pages/FileTools/FileTools';
 import ImageTools from '@/pages/ImageTools/ImageTools';
 import VideoTools from '@/pages/VideoTools/VideoTools';
+import PdfToImage from '@/pages/PdfTools/PdfToImage/PdfToImage';
 import '@/styles/globals.css';
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
           <Route path="/file-tools" element={<FileTools />} />
           <Route path="/image-tools" element={<ImageTools />} />
           <Route path="/video-tools" element={<VideoTools />} />
+          <Route path="/pdf-to-image" element={<PdfToImage />} />
         </Routes>
       </Layout>
     </Router>

@@ -2,6 +2,8 @@ import { ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAppStore } from '@/stores/appStore';
 import PWAInstallButton from '@/components/PWAInstallButton/PWAInstallButton';
+import TaskProgressBar from '@/components/common/TaskSystem/TaskProgressBar';
+import CompletionToast from '@/components/common/TaskSystem/CompletionToast';
 import styles from './Layout.module.css';
 
 interface LayoutProps {
@@ -21,6 +23,9 @@ export default function Layout({ children }: LayoutProps) {
 
   return (
     <div className={styles.layout}>
+      {/* Task 진행상황 표시 */}
+      <TaskProgressBar />
+      
       <header className={styles.header}>
         <div className={styles.headerContent}>
           <div className={styles.logo}>
@@ -71,6 +76,9 @@ export default function Layout({ children }: LayoutProps) {
           </p>
         </div>
       </footer>
+      
+      {/* 완료 알림 토스트 */}
+      <CompletionToast />
     </div>
   );
 }

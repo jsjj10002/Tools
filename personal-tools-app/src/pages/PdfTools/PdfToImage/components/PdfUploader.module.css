@@ -1,0 +1,144 @@
+.container {
+  border: 2px dashed var(--color-border);
+  border-radius: 12px;
+  padding: 40px 20px;
+  text-align: center;
+  background: var(--color-surface);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.container:hover {
+  border-color: var(--color-primary);
+  background: var(--color-background);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.dragActive {
+  border-color: var(--color-primary) !important;
+  background: linear-gradient(135deg, 
+    var(--color-primary-light) 0%, 
+    var(--color-secondary-light) 100%) !important;
+  transform: scale(1.02);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.dragActive .content {
+  transform: scale(1.05);
+}
+
+.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  transition: transform 0.3s ease;
+}
+
+.icon {
+  font-size: 48px;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.container:hover .icon {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+.text {
+  color: var(--color-text);
+}
+
+.mainText {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--color-text);
+}
+
+.subText {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+}
+
+.dragText {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-primary);
+  animation: pulse 1.5s ease-in-out infinite;
+}.uploadBtn {
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.uploadBtn:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.3);
+}
+
+.uploadBtn:active {
+  transform: translateY(0);
+}
+
+.uploadBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .container {
+    padding: 30px 15px;
+  }
+  
+  .icon {
+    font-size: 36px;
+  }
+  
+  .mainText {
+    font-size: 16px;
+  }
+  
+  .subText {
+    font-size: 13px;
+  }
+  
+  .uploadBtn {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}

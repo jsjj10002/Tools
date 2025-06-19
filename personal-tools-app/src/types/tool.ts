@@ -1,4 +1,4 @@
-import { IProcessResult, IFileInfo, ProcessStatus, ToolCategory } from './common';
+import { IProcessResult, ProcessStatus, ToolCategory } from './common';
 
 export interface ITool {
   id: string;

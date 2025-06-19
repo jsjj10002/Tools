@@ -1,6 +1,9 @@
 import { ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAppStore } from '@/stores/appStore';
+import PWAInstallButton from '@/components/PWAInstallButton/PWAInstallButton';
+import TaskProgressBar from '@/components/common/TaskSystem/TaskProgressBar';
+import CompletionToast from '@/components/common/TaskSystem/CompletionToast';
 import styles from './Layout.module.css';
 
 interface LayoutProps {
@@ -12,14 +15,17 @@ export default function Layout({ children }: LayoutProps) {
   const { isOnline, theme, toggleTheme } = useAppStore();
 
   const navItems = [
-    { path: '/', label: '대시보드' },
-    { path: '/file-tools', label: '파일 도구' },
-    { path: '/image-tools', label: '이미지 도구' },
-    { path: '/video-tools', label: '영상 도구' },
+    { path: '/', label: '홈', icon: '🏠' },
+    { path: '/file-tools', label: '파일 도구', icon: '📁' },
+    { path: '/image-tools', label: '이미지 도구', icon: '🖼️' },
+    { path: '/video-tools', label: '영상 도구', icon: '🎬' },
   ];
 
   return (
     <div className={styles.layout}>
+      {/* Task 진행상황 표시 */}
+      <TaskProgressBar />
+      
       <header className={styles.header}>
         <div className={styles.headerContent}>
           <div className={styles.logo}>
@@ -35,7 +41,8 @@ export default function Layout({ children }: LayoutProps) {
                   location.pathname === item.path ? styles.active : ''
                 }`}
               >
-                {item.label}
+                <span className={styles.navIcon}>{item.icon}</span>
+                <span className={styles.navLabel}>{item.label}</span>
               </Link>
             ))}
           </nav>
@@ -44,6 +51,8 @@ export default function Layout({ children }: LayoutProps) {
             <div className={`${styles.status} ${isOnline ? styles.online : styles.offline}`}>
               {isOnline ? '🟢 온라인' : '🔴 오프라인'}
             </div>
+            
+            <PWAInstallButton />
             
             <button
               onClick={toggleTheme}
@@ -68,6 +77,9 @@ export default function Layout({ children }: LayoutProps) {
           </p>
         </div>
       </footer>
+      
+      {/* 완료 알림 토스트 */}
+      <CompletionToast />
     </div>
   );
 }

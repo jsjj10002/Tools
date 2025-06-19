@@ -1,0 +1,201 @@
+.container {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.section {
+  margin-bottom: 2rem;
+}
+
+.section:last-child {
+  margin-bottom: 0;
+}
+
+.title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 1rem 0;
+}
+
+.optionsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.option {
+  position: relative;
+  background: var(--surface-secondary);
+  border: 2px solid var(--border);
+  border-radius: 0.8rem;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: block;
+}
+
+.option:hover {
+  border-color: var(--color-primary-light);
+  background: var(--surface-hover);
+  transform: translateY(-2px);
+}
+
+.option.selected {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
+}
+
+.radioInput {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.optionContent {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.optionIcon {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+}
+
+.optionText {
+  flex: 1;
+}
+
+.optionLabel {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.extension {
+  background: var(--color-primary);
+  color: white;
+  font-size: 0.7rem;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.3rem;
+  font-weight: 500;
+}
+
+.optionDescription {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.summary {
+  background: var(--surface-secondary);
+  border: 1px solid var(--border);
+  border-radius: 0.8rem;
+  padding: 1rem;
+  margin-top: 1.5rem;
+}
+
+.summary h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 1rem 0;
+}
+
+.summaryContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.summaryItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.summaryLabel {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.summaryValue {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  font-weight: 600;
+  background: var(--surface);
+  padding: 0.2rem 0.6rem;
+  border-radius: 0.4rem;
+  border: 1px solid var(--border);
+}
+
+/* 선택된 옵션 체크 표시 */
+.option.selected::after {
+  content: '✓';
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: var(--color-primary);
+  color: white;
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .optionsGrid {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  .option {
+    padding: 0.8rem;
+  }
+
+  .optionContent {
+    gap: 0.8rem;
+  }
+
+  .optionIcon {
+    font-size: 1.5rem;
+  }
+
+  .summaryContent {
+    gap: 0.8rem;
+  }
+
+  .summaryItem {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.3rem;
+  }
+
+  .summaryLabel {
+    font-size: 0.85rem;
+  }
+
+  .summaryValue {
+    text-align: center;
+  }
+}

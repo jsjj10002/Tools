@@ -2,11 +2,18 @@
     /* 색상 */
     --color-primary: #007bff;
     --color-primary-dark: #0056b3;
+    --color-primary-light: #66b3ff;
     --color-secondary: #6c757d;
     --color-success: #28a745;
     --color-danger: #dc3545;
     --color-warning: #ffc107;
     --color-info: #17a2b8;
+    
+    /* 새로운 테마 변수 */
+    --primary: #007bff;
+    --primary-light: #66b3ff;
+    --surface: #ffffff;
+    --border: #dee2e6;
     
     /* 배경색 */
     --bg-primary: #ffffff;
@@ -64,4 +71,6 @@
     --text-muted: #666666;
     
     --border-color: #404040;
+    --surface: #2d2d2d;
+    --border: #404040;
   }

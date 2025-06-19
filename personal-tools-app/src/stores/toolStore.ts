@@ -19,7 +19,7 @@ interface IToolStoreState extends IToolState {
 
 export const useToolStore = create<IToolStoreState>()(
   devtools(
-    (set, get) => ({
+    (set) => ({
       // 초기 상태
       currentTool: null,
       status: 'idle',

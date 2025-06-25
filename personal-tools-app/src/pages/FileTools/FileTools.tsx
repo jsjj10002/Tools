@@ -42,7 +42,7 @@ export default function FileTools() {
       description: '텍스트/CSV 파일의 인코딩을 변환합니다. 자동 감지 및 다양한 인코딩 지원 (UTF-8, EUC-KR 등)',
       icon: '📝🔄📝',
       path: '/text-encoding',
-      status: 'coming-soon'
+      status: 'available'
     },
     {
       id: 'format-converter',
@@ -50,7 +50,7 @@ export default function FileTools() {
       description: 'CSV ↔ JSON ↔ XML 형식 간 변환을 지원합니다. 일괄 처리 및 구조 미리보기 제공',
       icon: '📊🔄📊',
       path: '/format-converter',
-      status: 'coming-soon'
+      status: 'available'
     },
     {
       id: 'document-to-pdf',
@@ -58,7 +58,7 @@ export default function FileTools() {
       description: 'HTML, Markdown, IPYNB 파일을 PDF로 변환합니다. 스타일 유지 및 고품질 렌더링',
       icon: '📃➡️📄',
       path: '/document-to-pdf',
-      status: 'coming-soon'
+      status: 'available'
     },
     {
       id: 'file-compress',

@@ -9,6 +9,10 @@ import VideoTools from '@/pages/VideoTools/VideoTools';
 import PdfToImage from '@/pages/PdfTools/PdfToImage/PdfToImage';
 import PdfMerge from '@/pages/PdfTools/PdfMerge/PdfMerge';
 import PdfSplit from '@/pages/PdfTools/PdfSplit/PdfSplit';
+import ImageCompress from '@/pages/ImageTools/ImageCompress/ImageCompress';
+import ImageResize from '@/pages/ImageTools/ImageResize/ImageResize';
+import ImageFormatConverter from '@/pages/ImageTools/ImageFormatConverter/ImageFormatConverter';
+// import ImageBatchProcessor from '@/pages/ImageTools/ImageBatchProcessor/ImageBatchProcessor';
 import '@/styles/globals.css';
 
 function App() {
@@ -44,6 +48,10 @@ function App() {
           <Route path="/pdf-to-image" element={<PdfToImage />} />
           <Route path="/pdf-merge" element={<PdfMerge />} />
           <Route path="/pdf-split" element={<PdfSplit />} />
+          <Route path="/image-compress" element={<ImageCompress />} />
+          <Route path="/image-resize" element={<ImageResize />} />
+          <Route path="/image-format-converter" element={<ImageFormatConverter />} />
+          {/* <Route path="/image-batch-processor" element={<ImageBatchProcessor />} /> */}
         </Routes>
       </Layout>
     </Router>

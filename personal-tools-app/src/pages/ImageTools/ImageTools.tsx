@@ -18,7 +18,7 @@ export default function ImageTools() {
       description: '이미지 품질을 10%~80%까지 조절하여 파일 크기를 줄입니다. 미리보기 지원',
       icon: '🗜️',
       path: '/image-compress',
-      status: 'coming-soon'
+      status: 'available'
     },
     {
       id: 'image-resize',
@@ -26,7 +26,7 @@ export default function ImageTools() {
       description: '이미지 크기를 원하는 치수로 조정합니다. 비율 유지 옵션 포함',
       icon: '📏',
       path: '/image-resize',
-      status: 'coming-soon'
+      status: 'available'
     },
     {
       id: 'image-format-converter',
@@ -34,6 +34,14 @@ export default function ImageTools() {
       description: 'JPG, PNG, WebP, BMP, GIF 등 다양한 이미지 포맷 간 변환',
       icon: '🔄',
       path: '/image-format-converter',
+      status: 'available'
+    },
+    {
+      id: 'image-batch-processor',
+      title: '일괄 처리',
+      description: '여러 이미지를 동시에 처리합니다. 압축, 리사이즈, 포맷 변환 일괄 적용',
+      icon: '📦',
+      path: '/image-batch-processor',
       status: 'coming-soon'
     },
     {
@@ -42,14 +50,6 @@ export default function ImageTools() {
       description: '웹용 이미지 최적화, 메타데이터 제거, 품질 조정을 통한 종합 최적화',
       icon: '⚡',
       path: '/image-optimization',
-      status: 'coming-soon'
-    },
-    {
-      id: 'image-batch-processor',
-      title: '일괄 처리',
-      description: '여러 이미지를 동시에 처리합니다. 압축, 리사이즈, 포맷 변환 일괄 적용',
-      icon: '📦',
-      path: '/image-batch-processor',
       status: 'coming-soon'
     },
     {

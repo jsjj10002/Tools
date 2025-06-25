@@ -2,48 +2,44 @@ import React from 'react';
 import styles from './QualitySlider.module.css';
 
 interface QualitySliderProps {
-  value: number;
-  onChange: (value: number) => void;
+  quality: number;
+  onChange: (quality: number) => void;
   disabled?: boolean;
-  min?: number;
-  max?: number;
-  step?: number;
-  label?: string;
 }
 
-export default function QualitySlider({ 
-  value, 
-  onChange, 
-  disabled = false,
-  min = 10,
-  max = 80,
-  step = 5,
-  label = "압축 품질"
-}: QualitySliderProps) {
-  
-  const getQualityDescription = (quality: number): string => {
-    if (quality >= 70) return "높은 품질";
-    if (quality >= 50) return "보통 품질";
-    if (quality >= 30) return "낮은 품질";
-    return "최소 품질";
-  };
+const getQualityLabel = (quality: number): string => {
+  if (quality >= 80) return '최고품질';
+  if (quality >= 70) return '고품질';
+  if (quality >= 50) return '표준품질';
+  if (quality >= 30) return '저품질';
+  return '최소품질';
+};
 
-  const getQualityColor = (quality: number): string => {
-    if (quality >= 70) return "var(--color-success)";
-    if (quality >= 50) return "var(--color-warning)";
-    return "var(--color-error)";
-  };
+const getQualityColor = (quality: number): string => {
+  if (quality >= 80) return '#10b981'; // emerald-500
+  if (quality >= 70) return '#3b82f6'; // blue-500
+  if (quality >= 50) return '#f59e0b'; // amber-500
+  if (quality >= 30) return '#ef4444'; // red-500
+  return '#6b7280'; // gray-500
+};
 
+export default function QualitySlider({ quality, onChange, disabled = false }: QualitySliderProps) {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <label className={styles.label}>{label}</label>
-        <div className={styles.valueDisplay}>
-          <span className={styles.value} style={{ color: getQualityColor(value) }}>
-            {value}%
+        <label className={styles.label}>품질 설정</label>
+        <div className={styles.qualityDisplay}>
+          <span 
+            className={styles.qualityValue}
+            style={{ color: getQualityColor(quality) }}
+          >
+            {quality}%
           </span>
-          <span className={styles.description}>
-            ({getQualityDescription(value)})
+          <span 
+            className={styles.qualityLabel}
+            style={{ color: getQualityColor(quality) }}
+          >
+            ({getQualityLabel(quality)})
           </span>
         </div>
       </div>
@@ -51,42 +47,62 @@ export default function QualitySlider({
       <div className={styles.sliderContainer}>
         <input
           type="range"
-          min={min}
-          max={max}
-          step={step}
-          value={value}
+          min="10"
+          max="95"
+          step="5"
+          value={quality}
           onChange={(e) => onChange(Number(e.target.value))}
           disabled={disabled}
           className={styles.slider}
           style={{
-            background: `linear-gradient(to right, 
-              var(--color-error) 0%, 
-              var(--color-warning) 50%, 
-              var(--color-success) 100%)`
+            background: `linear-gradient(to right, ${getQualityColor(quality)} 0%, ${getQualityColor(quality)} ${((quality - 10) / 85) * 100}%, #e5e7eb ${((quality - 10) / 85) * 100}%, #e5e7eb 100%)`
           }}
         />
-        
         <div className={styles.marks}>
-          <span className={styles.mark}>10%</span>
-          <span className={styles.mark}>30%</span>
-          <span className={styles.mark}>50%</span>
-          <span className={styles.mark}>70%</span>
-          <span className={styles.mark}>80%</span>
+          <div className={styles.mark}>
+            <span>10%</span>
+            <span>최소</span>
+          </div>
+          <div className={styles.mark}>
+            <span>30%</span>
+            <span>저품질</span>
+          </div>
+          <div className={styles.mark}>
+            <span>50%</span>
+            <span>표준</span>
+          </div>
+          <div className={styles.mark}>
+            <span>70%</span>
+            <span>고품질</span>
+          </div>
+          <div className={styles.mark}>
+            <span>95%</span>
+            <span>최고</span>
+          </div>
         </div>
       </div>
-
-      <div className={styles.qualityGuide}>
-        <div className={styles.guideItem}>
-          <span className={styles.guideColor} style={{ backgroundColor: "var(--color-success)" }}></span>
-          <span className={styles.guideText}>70-80%: 포트폴리오, 인쇄용</span>
-        </div>
-        <div className={styles.guideItem}>
-          <span className={styles.guideColor} style={{ backgroundColor: "var(--color-warning)" }}></span>
-          <span className={styles.guideText}>50-65%: 웹사이트, 소셜미디어</span>
-        </div>
-        <div className={styles.guideItem}>
-          <span className={styles.guideColor} style={{ backgroundColor: "var(--color-error)" }}></span>
-          <span className={styles.guideText}>10-45%: 썸네일, 미리보기</span>
+      
+      <div className={styles.description}>
+        <div className={styles.usageGuide}>
+          <h4>품질 가이드</h4>
+          <div className={styles.guideItems}>
+            <div className={styles.guideItem}>
+              <span className={styles.guideDot} style={{ backgroundColor: '#10b981' }}></span>
+              <span><strong>80-95%:</strong> 포트폴리오, 인쇄용</span>
+            </div>
+            <div className={styles.guideItem}>
+              <span className={styles.guideDot} style={{ backgroundColor: '#3b82f6' }}></span>
+              <span><strong>70-80%:</strong> 웹사이트, 일반 사용</span>
+            </div>
+            <div className={styles.guideItem}>
+              <span className={styles.guideDot} style={{ backgroundColor: '#f59e0b' }}></span>
+              <span><strong>50-70%:</strong> 소셜미디어, 빠른 로딩</span>
+            </div>
+            <div className={styles.guideItem}>
+              <span className={styles.guideDot} style={{ backgroundColor: '#ef4444' }}></span>
+              <span><strong>30-50%:</strong> 썸네일, 미리보기</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

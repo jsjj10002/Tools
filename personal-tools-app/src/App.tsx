@@ -12,6 +12,9 @@ import PdfSplit from '@/pages/PdfTools/PdfSplit/PdfSplit';
 import ImageCompress from '@/pages/ImageTools/ImageCompress/ImageCompress';
 import ImageResize from '@/pages/ImageTools/ImageResize/ImageResize';
 import ImageFormatConverter from '@/pages/ImageTools/ImageFormatConverter/ImageFormatConverter';
+import TextEncoding from '@/pages/FileTools/TextEncoding/TextEncoding';
+import FormatConverter from '@/pages/FileTools/FormatConverter/FormatConverter';
+import DocumentToPdf from '@/pages/FileTools/DocumentToPdf/DocumentToPdf';
 // import ImageBatchProcessor from '@/pages/ImageTools/ImageBatchProcessor/ImageBatchProcessor';
 import '@/styles/globals.css';
 
@@ -51,6 +54,9 @@ function App() {
           <Route path="/image-compress" element={<ImageCompress />} />
           <Route path="/image-resize" element={<ImageResize />} />
           <Route path="/image-format-converter" element={<ImageFormatConverter />} />
+          <Route path="/text-encoding" element={<TextEncoding />} />
+          <Route path="/format-converter" element={<FormatConverter />} />
+          <Route path="/document-to-pdf" element={<DocumentToPdf />} />
           {/* <Route path="/image-batch-processor" element={<ImageBatchProcessor />} /> */}
         </Routes>
       </Layout>

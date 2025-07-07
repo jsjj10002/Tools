@@ -3,19 +3,7 @@
   margin: 0 auto;
   padding: 2rem;
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   position: relative;
-}
-
-.container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" fill-opacity="0.05"/><circle cx="75" cy="75" r="1" fill="white" fill-opacity="0.03"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-  pointer-events: none;
 }
 
 .hero {
@@ -34,15 +22,14 @@
 .heroTitle {
   font-size: 3.5rem;
   font-weight: 800;
-  color: white;
+  color: #1e293b;
   margin-bottom: 1rem;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   letter-spacing: -0.02em;
 }
 
 .heroSubtitle {
   font-size: 1.25rem;
-  color: rgba(255, 255, 255, 0.9);
+  color: #64748b;
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.6;
@@ -65,10 +52,9 @@
 .dropzone {
   width: 100%;
   min-height: 400px;
-  border: 3px dashed rgba(255, 255, 255, 0.3);
+  border: 3px dashed #e2e8f0;
   border-radius: 24px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
+  background: #f8fafc;
   transition: all 0.3s ease;
   cursor: pointer;
   display: flex;
@@ -78,26 +64,12 @@
   overflow: hidden;
 }
 
-.dropzone::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.05) 50%, transparent 70%);
-  transform: translateX(-100%);
-  transition: transform 0.6s ease;
-}
 
-.dropzone:hover::before {
-  transform: translateX(100%);
-}
 
 .dropzone:hover,
 .dropzone.dragActive {
-  border-color: rgba(255, 255, 255, 0.6);
-  background: rgba(255, 255, 255, 0.15);
+  border-color: #3b82f6;
+  background: #f1f5f9;
   transform: translateY(-4px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
@@ -108,22 +80,20 @@
 }
 
 .uploadIcon {
-  color: rgba(255, 255, 255, 0.8);
+  color: #64748b;
   margin-bottom: 1.5rem;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 .dropzoneContent h3 {
   font-size: 1.5rem;
   font-weight: 700;
-  color: white;
+  color: #1e293b;
   margin-bottom: 0.5rem;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .dropzoneContent p {
   font-size: 1rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: #64748b;
   margin-bottom: 1.5rem;
 }
 
@@ -135,14 +105,13 @@
 }
 
 .uploadFeatures span {
-  background: rgba(255, 255, 255, 0.15);
-  color: white;
+  background: #e2e8f0;
+  color: #475569;
   padding: 0.5rem 1rem;
   border-radius: 20px;
   font-size: 0.85rem;
   font-weight: 500;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid #cbd5e1;
 }
 
 .primaryButton,

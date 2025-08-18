@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import { useState, useRef } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { toPng } from 'html-to-image';
 import jsPDF from 'jspdf';
@@ -140,7 +140,7 @@ const sanitizeHtml = (html: string): string => {
     .replace(/<meta[^>]*>/gi, '');
   
   // 스타일을 PDF 컨테이너 내부로 제한
-  sanitized = sanitized.replace(/<style[^>]*>([\s\S]*?)<\/style>/gi, (match, css) => {
+  sanitized = sanitized.replace(/<style[^>]*>([\s\S]*?)<\/style>/gi, (_, css) => {
     // CSS 규칙을 .pdf-content 클래스 내부로 제한
     const scopedCss = css.replace(/([^{}]+){/g, (rule: string) => {
       const selector = rule.slice(0, -1).trim();
@@ -188,9 +188,9 @@ export default function DocumentToPdf() {
   };
 
   // Markdown을 HTML로 변환
-  const convertMarkdownToHtml = (markdown: string): string => {
+  const convertMarkdownToHtml = async (markdown: string): Promise<string> => {
     try {
-      return marked(markdown, {
+      return await marked(markdown, {
         breaks: true,
         gfm: true,
       });
@@ -286,7 +286,7 @@ export default function DocumentToPdf() {
         
         switch (fileType) {
           case 'markdown':
-            htmlContent = convertMarkdownToHtml(content);
+            htmlContent = await convertMarkdownToHtml(content);
             break;
           case 'html':
             htmlContent = sanitizeHtml(content);

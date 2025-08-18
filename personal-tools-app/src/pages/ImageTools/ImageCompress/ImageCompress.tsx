@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { useTaskStore } from '@/stores/taskStore';
 import { TaskType, ImageProcessConfig } from '@/types/task';
@@ -105,9 +105,8 @@ export default function ImageCompress() {
     setIsProcessing(true);
 
     const taskId = addTask({
-      id: crypto.randomUUID(),
       type: 'image-compress' as TaskType,
-      title: `이미지 압축 (${imageFiles.length}개 파일)`,
+      filename: `이미지 압축 (${imageFiles.length}개 파일)`,
       progress: 0,
       status: 'pending',
       config: {
@@ -170,7 +169,7 @@ export default function ImageCompress() {
     } catch (error) {
       console.error('이미지 압축 오류:', error);
       useTaskStore.getState().updateTask(taskId, { 
-        status: 'failed',
+        status: 'error',
         error: error instanceof Error ? error.message : '알 수 없는 오류가 발생했습니다.'
       });
     } finally {

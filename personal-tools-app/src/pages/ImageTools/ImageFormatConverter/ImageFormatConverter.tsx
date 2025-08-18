@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { useTaskStore } from '@/stores/taskStore';
 import { TaskType, ImageProcessConfig } from '@/types/task';
@@ -169,9 +169,8 @@ export default function ImageFormatConverter() {
     setIsProcessing(true);
 
     const taskId = addTask({
-      id: crypto.randomUUID(),
       type: 'image-format-convert' as TaskType,
-      title: `이미지 포맷 변환 (${imageFiles.length}개 파일 → ${convertConfig.targetFormat.toUpperCase()})`,
+      filename: `이미지 포맷 변환 (${imageFiles.length}개 파일 → ${convertConfig.targetFormat.toUpperCase()})`,
       progress: 0,
       status: 'pending',
       config: {
@@ -233,7 +232,7 @@ export default function ImageFormatConverter() {
     } catch (error) {
       console.error('이미지 변환 오류:', error);
       useTaskStore.getState().updateTask(taskId, { 
-        status: 'failed',
+        status: 'error',
         error: error instanceof Error ? error.message : '알 수 없는 오류가 발생했습니다.'
       });
     } finally {

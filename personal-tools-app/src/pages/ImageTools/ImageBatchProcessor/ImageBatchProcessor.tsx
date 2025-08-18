@@ -1,7 +1,5 @@
-import React, { useState, useCallback, useRef } from 'react';
+import { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { useTaskStore } from '@/stores/taskStore';
-import { TaskType, ImageProcessConfig } from '@/types/task';
 import ImagePreview from '../components/ImagePreview/ImagePreview';
 import QualitySlider from '../components/QualitySlider/QualitySlider';
 import OutputPathSelector from '../components/OutputPathSelector/OutputPathSelector';
@@ -50,9 +48,6 @@ export default function ImageBatchProcessor() {
     targetFormat: 'jpg'
   });
 
-  const { addTask } = useTaskStore();
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
   const getImageDimensions = (file: File): Promise<{ width: number; height: number }> => {
     return new Promise((resolve, reject) => {
       const img = new Image();
@@ -75,7 +70,7 @@ export default function ImageBatchProcessor() {
     });
   };
 
-  const onDrop = useCallback(async (acceptedFiles: File[]) => {
+  const onDrop = async (acceptedFiles: File[]) => {
     const validFiles = acceptedFiles.filter(file => 
       file.type.startsWith('image/') && 
       ['image/jpeg', 'image/png', 'image/webp', 'image/bmp'].includes(file.type)
@@ -98,7 +93,7 @@ export default function ImageBatchProcessor() {
     }
 
     setImageFiles(prev => [...prev, ...newImageFiles]);
-  }, []);
+  };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -434,8 +429,6 @@ export default function ImageBatchProcessor() {
               <ImagePreview
                 src={imageFile.url}
                 alt={imageFile.file.name}
-                width={280}
-                height={200}
               />
               <div className={styles.imageInfo}>
                 <div><strong>{imageFile.file.name}</strong></div>
@@ -501,8 +494,6 @@ export default function ImageBatchProcessor() {
                       <ImagePreview
                         src={result.url}
                         alt={`처리된 ${imageFile.file.name}`}
-                        width={280}
-                        height={200}
                       />
                       <div className={styles.resultStats}>
                         <div className={styles.statItem}>

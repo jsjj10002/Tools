@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { useTaskStore } from '@/stores/taskStore';
-import { PdfToImageConfig, TaskProgress } from '@/types/task';
+import { PdfToImageConfig } from '@/types/task';
 import { PdfProcessor } from './services/pdfProcessor';
 import { exportImages } from './services/imageExporter';
 import PdfUploader from './components/PdfUploader';

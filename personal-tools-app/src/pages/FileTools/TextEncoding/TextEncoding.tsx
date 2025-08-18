@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { useDropzone } from 'react-dropzone';
 import styles from './TextEncoding.module.css';
 

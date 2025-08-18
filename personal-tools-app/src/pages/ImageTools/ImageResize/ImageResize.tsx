@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { useTaskStore } from '@/stores/taskStore';
 import { TaskType, ImageProcessConfig } from '@/types/task';
@@ -177,9 +177,8 @@ export default function ImageResize() {
     setIsProcessing(true);
 
     const taskId = addTask({
-      id: crypto.randomUUID(),
       type: 'image-resize' as TaskType,
-      title: `이미지 리사이즈: ${imageFile.file.name}`,
+      filename: `이미지 리사이즈: ${imageFile.file.name}`,
       progress: 0,
       status: 'pending',
       config: {
@@ -215,7 +214,7 @@ export default function ImageResize() {
     } catch (error) {
       console.error('이미지 리사이즈 오류:', error);
       useTaskStore.getState().updateTask(taskId, { 
-        status: 'failed',
+        status: 'error',
         error: error instanceof Error ? error.message : '알 수 없는 오류가 발생했습니다.'
       });
     } finally {

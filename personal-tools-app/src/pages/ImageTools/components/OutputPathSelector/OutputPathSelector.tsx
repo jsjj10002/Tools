@@ -1,4 +1,3 @@
-import React, { useRef } from 'react';
 import styles from './OutputPathSelector.module.css';
 
 interface OutputPathSelectorProps {
@@ -16,8 +15,6 @@ export default function OutputPathSelector({
   disabled = false,
   label = "출력 경로"
 }: OutputPathSelectorProps) {
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
   const handleFolderSelect = () => {
     // 웹에서는 디렉토리 선택이 제한적이므로 사용자가 직접 입력하도록 안내
     const newPath = prompt('저장할 폴더 경로를 입력하세요 (예: C:\\Users\\사용자명\\Downloads)', value || '');

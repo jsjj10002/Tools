@@ -19,6 +19,11 @@ export class PdfProcessor {
   constructor(onProgress?: (progress: TaskProgress) => void) {
     this.onProgress = onProgress;
   }
+
+  // 진행률 콜백을 동적으로 설정하는 메서드 추가
+  public setOnProgress(onProgress: (progress: TaskProgress) => void): void {
+    this.onProgress = onProgress;
+  }
   
   async loadPdf(file: File): Promise<void> {
     try {

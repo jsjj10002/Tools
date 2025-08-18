@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { useTaskStore } from '@/stores/taskStore';
-import { PdfToImageConfig, TaskProgress } from '@/types/task';
+import { PdfToImageConfig } from '@/types/task';
 import { PdfProcessor } from './services/pdfProcessor';
 import { exportImages } from './services/imageExporter';
 import PdfUploader from './components/PdfUploader';
@@ -146,12 +146,12 @@ export default function PdfToImage() {
 
   const handleStartConversion = async () => {
     if (processedPdfs.length === 0) return;
-    
+
     setIsProcessing(true);
-    
+
     for (let i = 0; i < processedPdfs.length; i++) {
-      const { file, config } = processedPdfs[i];
-      
+      const { file, processor, config } = processedPdfs[i];
+
       const taskId = addTask({
         type: 'pdf-to-image',
         filename: file.name,
@@ -159,22 +159,17 @@ export default function PdfToImage() {
         currentFile: i + 1,
         status: 'pending',
         progress: 0,
-        config
+        config,
       });
-      
+
       try {
-        // 진행률 콜백 설정
-        const progressCallback = (progress: TaskProgress) => {
-          console.log('Progress callback called:', progress);
+        // 기존 processor에 진행률 콜백 설정
+        processor.setOnProgress((progress) => {
           updateTaskProgress(progress);
-        };
-        
-        // PdfProcessor에 진행률 콜백 설정
-        const processorWithCallback = new PdfProcessor(progressCallback);
-        await processorWithCallback.loadPdf(file);
+        });
 
         // 페이지 변환
-        const pages = await processorWithCallback.convertPages(
+        const pages = await processor.convertPages(
           config.startPage,
           config.endPage,
           config,
@@ -185,16 +180,11 @@ export default function PdfToImage() {
         const folderName = file.name.replace(/\.pdf$/i, '_img');
         await exportImages(pages, config.format, folderName);
 
-        // 태스크 완료
+        // 태스크 상태 업데이트 (진행률 콜백이 100%에서 'completed'로 처리)
+        // 여기서는 최종 결과 메시지만 업데이트
         updateTask(taskId, {
-          status: 'completed',
-          progress: 100,
-          endTime: Date.now(),
-          result: `${folderName} 폴더에 ${pages.length}개 이미지 저장됨`
+          result: `${folderName} 폴더에 ${pages.length}개 이미지 저장됨`,
         });
-
-        // 처리기 정리
-        processorWithCallback.dispose();
 
       } catch (error) {
         console.error(`변환 실패: ${file.name}`, error);
@@ -202,11 +192,16 @@ export default function PdfToImage() {
           status: 'error',
           progress: 0,
           error: error instanceof Error ? error.message : '알 수 없는 오류',
-          endTime: Date.now()
+          endTime: Date.now(),
         });
       }
     }
-    
+
+    // 모든 작업 완료 후 정리
+    processedPdfs.forEach(p => p.processor.dispose());
+    setUploadedFiles([]);
+    setProcessedPdfs([]);
+    setCurrentPdfIndex(0);
     setIsProcessing(false);
   };
 

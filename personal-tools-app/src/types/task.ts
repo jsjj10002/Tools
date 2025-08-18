@@ -2,11 +2,15 @@ export type TaskType =
   | 'pdf-to-image'
   | 'image-resize'
   | 'image-compress'
+  | 'image-format-convert'
   | 'encoding-convert'
   | 'format-convert'
+  | 'document-to-pdf'
   | 'pdf-merge'
   | 'pdf-split'
   | 'video-audio-extract'
+  | 'audio-format-convert'
+  | 'video-format-convert'
   | 'media-convert';
 
 export type TaskStatus = 'pending' | 'processing' | 'completed' | 'error' | 'cancelled';
@@ -70,4 +74,53 @@ export interface MergeablePdf {
   totalPages: number;
   thumbnailUrl?: string;
   isLoaded: boolean;
+}
+
+export interface EncodingConvertConfig {
+  sourceEncoding?: string; // 자동 감지시 undefined
+  targetEncoding: string; // UTF-8, EUC-KR, ASCII 등
+  outputPath: string;
+  overwriteOriginal: boolean; // 원본 파일 덮어쓰기 여부
+}
+
+export interface FormatConvertConfig {
+  sourceFormat: 'csv' | 'json' | 'xml';
+  targetFormat: 'csv' | 'json' | 'xml';
+  outputPath: string;
+  preserveStructure: boolean; // 데이터 구조 유지 여부
+}
+
+export interface DocumentToPdfConfig {
+  documentType: 'html' | 'markdown' | 'ipynb';
+  outputPath: string;
+  preserveStyles: boolean; // 스타일 유지 여부
+  pageSize: 'A4' | 'Letter' | 'Legal';
+  margins: {
+    top: number;
+    right: number;
+    bottom: number;
+    left: number;
+  };
+}
+
+export interface VideoAudioExtractConfig {
+  audioFormat: 'mp3' | 'wav' | 'aac' | 'flac';
+  quality: 'low' | 'medium' | 'high' | 'lossless';
+  outputPath: string;
+  startTime?: number; // 시작 시간 (초)
+  duration?: number; // 추출 길이 (초)
+}
+
+export interface MediaConvertConfig {
+  sourceFormat: string;
+  targetFormat: string;
+  quality: 'low' | 'medium' | 'high' | 'ultra';
+  outputPath: string;
+  videoCodec?: string;
+  audioCodec?: string;
+  bitrate?: number;
+  resolution?: {
+    width: number;
+    height: number;
+  };
 }

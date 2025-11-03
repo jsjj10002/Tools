@@ -15,7 +15,7 @@ export interface AppError {
   message: string;
   originalError?: Error;
   code?: string;
-  details?: Record<string, any>;
+  details?: Record<string, unknown>;
 }
 
 /**

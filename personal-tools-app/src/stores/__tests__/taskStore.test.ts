@@ -46,7 +46,7 @@ describe('useTaskStore', () => {
   it('작업을 업데이트할 수 있어야 함', () => {
     const { result } = renderHook(() => useTaskStore());
 
-    let taskId: string;
+    let taskId: string = '';
 
     act(() => {
       taskId = result.current.addTask({
@@ -72,7 +72,7 @@ describe('useTaskStore', () => {
   it('진행률을 업데이트할 수 있어야 함', () => {
     const { result } = renderHook(() => useTaskStore());
 
-    let taskId: string;
+    let taskId: string = '';
 
     act(() => {
       taskId = result.current.addTask({
@@ -99,7 +99,7 @@ describe('useTaskStore', () => {
   it('100% 완료 시 completed 상태로 변경해야 함', () => {
     const { result } = renderHook(() => useTaskStore());
 
-    let taskId: string;
+    let taskId: string = '';
 
     act(() => {
       taskId = result.current.addTask({
@@ -126,7 +126,7 @@ describe('useTaskStore', () => {
   it('작업을 제거할 수 있어야 함', () => {
     const { result } = renderHook(() => useTaskStore());
 
-    let taskId: string;
+    let taskId: string = '';
 
     act(() => {
       taskId = result.current.addTask({
@@ -225,7 +225,7 @@ describe('useTaskStore', () => {
   it('작업을 취소할 수 있어야 함', () => {
     const { result } = renderHook(() => useTaskStore());
 
-    let taskId: string;
+    let taskId: string = '';
 
     act(() => {
       taskId = result.current.addTask({

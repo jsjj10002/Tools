@@ -1,7 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { ErrorBoundary } from '../ErrorBoundary';
-import React from 'react';
 
 // 에러를 발생시키는 컴포넌트
 const ThrowError = ({ shouldThrow }: { shouldThrow: boolean }) => {
@@ -68,7 +67,6 @@ describe('ErrorBoundary', () => {
 
     // 에러 상태가 리셋되어야 함 (에러가 계속 발생하는 컴포넌트가 있으면 다시 에러가 발생하지만, 상태는 리셋됨)
     await waitFor(() => {
-      const errorTitle = screen.queryByText('오류가 발생했습니다');
       // 버튼을 클릭하면 에러 상태가 리셋되지만, 에러 컴포넌트가 있으면 다시 에러가 발생함
       // 이 테스트는 에러 상태 리셋이 작동하는지만 확인
       expect(resetButton).toBeInTheDocument();

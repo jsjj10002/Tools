@@ -13,6 +13,8 @@ import PdfSplit from '@/pages/PdfTools/PdfSplit/PdfSplit';
 import ImageCompress from '@/pages/ImageTools/ImageCompress/ImageCompress';
 import ImageResize from '@/pages/ImageTools/ImageResize/ImageResize';
 import ImageFormatConverter from '@/pages/ImageTools/ImageFormatConverter/ImageFormatConverter';
+import ImageOptimization from '@/pages/ImageTools/ImageOptimization/ImageOptimization';
+import ImageMetadataEditor from '@/pages/ImageTools/ImageMetadataEditor/ImageMetadataEditor';
 import TextEncoding from '@/pages/FileTools/TextEncoding/TextEncoding';
 import FormatConverter from '@/pages/FileTools/FormatConverter/FormatConverter';
 import DocumentToPdf from '@/pages/FileTools/DocumentToPdf/DocumentToPdf';
@@ -57,6 +59,8 @@ function App() {
           <Route path="/image-compress" element={<ImageCompress />} />
           <Route path="/image-resize" element={<ImageResize />} />
           <Route path="/image-format-converter" element={<ImageFormatConverter />} />
+          <Route path="/image-optimization" element={<ImageOptimization />} />
+          <Route path="/image-metadata-editor" element={<ImageMetadataEditor />} />
           <Route path="/text-encoding" element={<TextEncoding />} />
           <Route path="/format-converter" element={<FormatConverter />} />
           <Route path="/document-to-pdf" element={<DocumentToPdf />} />

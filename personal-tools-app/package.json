@@ -23,6 +23,7 @@
     "compressorjs": "^1.2.1",
     "date-fns": "^4.1.0",
     "encoding-japanese": "^2.2.0",
+    "exif-js": "^2.3.0",
     "ffmpeg.js": "^4.2.9003",
     "file-saver": "^2.0.5",
     "file-type": "^21.0.0",

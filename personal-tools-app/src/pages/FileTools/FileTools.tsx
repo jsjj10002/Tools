@@ -74,7 +74,7 @@ export default function FileTools() {
       description: '여러 파일을 동시에 처리합니다. 이름 변경, 포맷 변환, 압축 등 일괄 작업',
       icon: '📦',
       path: '/batch-file-processor',
-      status: 'coming-soon'
+      status: 'available'
     }
   ];
 

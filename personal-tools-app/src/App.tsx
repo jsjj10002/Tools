@@ -19,6 +19,7 @@ import TextEncoding from '@/pages/FileTools/TextEncoding/TextEncoding';
 import FormatConverter from '@/pages/FileTools/FormatConverter/FormatConverter';
 import DocumentToPdf from '@/pages/FileTools/DocumentToPdf/DocumentToPdf';
 import ZipCompress from '@/pages/FileTools/ZipCompress/ZipCompress';
+import BatchFileProcessor from '@/pages/FileTools/BatchFileProcessor/BatchFileProcessor';
 import ImageBatchProcessor from '@/pages/ImageTools/ImageBatchProcessor/ImageBatchProcessor';
 import '@/styles/globals.css';
 
@@ -65,6 +66,7 @@ function App() {
           <Route path="/format-converter" element={<FormatConverter />} />
           <Route path="/document-to-pdf" element={<DocumentToPdf />} />
           <Route path="/zip-compress" element={<ZipCompress />} />
+          <Route path="/batch-file-processor" element={<BatchFileProcessor />} />
           <Route path="/image-batch-processor" element={<ImageBatchProcessor />} />
           </Routes>
         </Layout>

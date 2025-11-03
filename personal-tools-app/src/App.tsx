@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useAppStore } from '@/stores/appStore';
+import { ErrorBoundary } from '@/components/common/ErrorBoundary/ErrorBoundary';
 import Layout from '@/components/common/Layout/Layout';
 import Dashboard from '@/pages/Dashboard/Dashboard';
 import FileTools from '@/pages/FileTools/FileTools';
@@ -41,9 +42,10 @@ function App() {
   }, [theme]);
 
   return (
-    <Router>
-      <Layout>
-        <Routes>
+    <ErrorBoundary>
+      <Router>
+        <Layout>
+          <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/file-tools" element={<FileTools />} />
           <Route path="/image-tools" element={<ImageTools />} />
@@ -58,9 +60,10 @@ function App() {
           <Route path="/format-converter" element={<FormatConverter />} />
           <Route path="/document-to-pdf" element={<DocumentToPdf />} />
           {/* <Route path="/image-batch-processor" element={<ImageBatchProcessor />} /> */}
-        </Routes>
-      </Layout>
-    </Router>
+          </Routes>
+        </Layout>
+      </Router>
+    </ErrorBoundary>
   );
 }
 

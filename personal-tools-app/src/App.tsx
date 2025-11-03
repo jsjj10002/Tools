@@ -16,7 +16,8 @@ import ImageFormatConverter from '@/pages/ImageTools/ImageFormatConverter/ImageF
 import TextEncoding from '@/pages/FileTools/TextEncoding/TextEncoding';
 import FormatConverter from '@/pages/FileTools/FormatConverter/FormatConverter';
 import DocumentToPdf from '@/pages/FileTools/DocumentToPdf/DocumentToPdf';
-// import ImageBatchProcessor from '@/pages/ImageTools/ImageBatchProcessor/ImageBatchProcessor';
+import ZipCompress from '@/pages/FileTools/ZipCompress/ZipCompress';
+import ImageBatchProcessor from '@/pages/ImageTools/ImageBatchProcessor/ImageBatchProcessor';
 import '@/styles/globals.css';
 
 function App() {
@@ -59,7 +60,8 @@ function App() {
           <Route path="/text-encoding" element={<TextEncoding />} />
           <Route path="/format-converter" element={<FormatConverter />} />
           <Route path="/document-to-pdf" element={<DocumentToPdf />} />
-          {/* <Route path="/image-batch-processor" element={<ImageBatchProcessor />} /> */}
+          <Route path="/zip-compress" element={<ZipCompress />} />
+          <Route path="/image-batch-processor" element={<ImageBatchProcessor />} />
           </Routes>
         </Layout>
       </Router>

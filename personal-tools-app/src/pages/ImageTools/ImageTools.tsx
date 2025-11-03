@@ -42,7 +42,7 @@ export default function ImageTools() {
       description: '여러 이미지를 동시에 처리합니다. 압축, 리사이즈, 포맷 변환 일괄 적용',
       icon: '📦',
       path: '/image-batch-processor',
-      status: 'coming-soon'
+      status: 'available'
     },
     {
       id: 'image-optimization',

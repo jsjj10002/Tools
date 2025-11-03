@@ -8,6 +8,8 @@ export type TaskType =
   | 'document-to-pdf'
   | 'pdf-merge'
   | 'pdf-split'
+  | 'zip-compress'
+  | 'zip-extract'
   | 'video-audio-extract'
   | 'audio-format-convert'
   | 'video-format-convert'

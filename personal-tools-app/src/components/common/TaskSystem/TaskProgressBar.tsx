@@ -1,3 +1,4 @@
+import { useMemo, useCallback } from 'react';
 import { useTaskStore } from '@/stores/taskStore';
 import { Task } from '@/types/task';
 import styles from './TaskProgressBar.module.css';
@@ -9,12 +10,18 @@ interface TaskProgressBarProps {
 export default function TaskProgressBar({ className }: TaskProgressBarProps) {
   const { tasks, activeTasksCount, showDetails, toggleDetails } = useTaskStore();
   
-  // 진행 중이거나 최근 완료된 작업들을 표시
-  const activeTasks = tasks.filter(task => 
-    task.status === 'pending' || 
-    task.status === 'processing' || 
-    (task.status === 'completed' && task.endTime && (Date.now() - task.endTime) < 3000)
-  );
+  // 진행 중이거나 최근 완료된 작업들을 메모이제이션
+  const activeTasks = useMemo(() => {
+    return tasks.filter(task => 
+      task.status === 'pending' || 
+      task.status === 'processing' || 
+      (task.status === 'completed' && task.endTime && (Date.now() - task.endTime) < 3000)
+    );
+  }, [tasks]);
+  
+  const handleToggleDetails = useCallback(() => {
+    toggleDetails();
+  }, [toggleDetails]);
   
   if (activeTasksCount === 0 && activeTasks.length === 0) return null;
   
@@ -29,7 +36,7 @@ export default function TaskProgressBar({ className }: TaskProgressBarProps) {
         </span>
         <button 
           className={styles.toggleBtn}
-          onClick={toggleDetails}
+          onClick={handleToggleDetails}
         >
           {showDetails ? '숨기기' : '상세보기'}
         </button>
@@ -55,8 +62,8 @@ interface TaskProgressItemProps {
   task: Task;
 }
 
-function TaskProgressItem({ task }: TaskProgressItemProps) {
-  const getTaskTypeLabel = (type: string) => {
+const TaskProgressItem = function TaskProgressItem({ task }: TaskProgressItemProps) {
+  const getTaskTypeLabel = useCallback((type: string) => {
     const labels = {
       'pdf-to-image': 'PDF → 이미지',
       'image-resize': '이미지 리사이즈',
@@ -69,7 +76,9 @@ function TaskProgressItem({ task }: TaskProgressItemProps) {
       'media-convert': '미디어 변환'
     };
     return labels[type as keyof typeof labels] || type;
-  };
+  }, []);
+  
+  const taskTypeLabel = useMemo(() => getTaskTypeLabel(task.type), [task.type, getTaskTypeLabel]);
   
   const isCompleted = task.status === 'completed';
   const isError = task.status === 'error';
@@ -79,7 +88,7 @@ function TaskProgressItem({ task }: TaskProgressItemProps) {
       <div className={styles.taskInfo}>
         <span className={`${styles.taskType} ${isCompleted ? styles.taskTypeCompleted : ''} ${isError ? styles.taskTypeError : ''}`}>
           {isCompleted ? '✅ ' : isError ? '❌ ' : ''}
-          {getTaskTypeLabel(task.type)}
+          {taskTypeLabel}
         </span>
         <span className={styles.filename}>
           {task.filename}
@@ -102,4 +111,4 @@ function TaskProgressItem({ task }: TaskProgressItemProps) {
       </div>
     </div>
   );
-}
+};

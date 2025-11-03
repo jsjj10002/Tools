@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 import { useTaskStore } from '@/stores/taskStore';
 import { Task } from '@/types/task';
 import styles from './CompletionToast.module.css';
@@ -12,6 +12,21 @@ interface ToastItem {
 export default function CompletionToast() {
   const { tasks } = useTaskStore();
   const [toasts, setToasts] = useState<ToastItem[]>([]);
+  
+  const getTaskTypeLabel = useCallback((type: string) => {
+    const labels = {
+      'pdf-to-image': 'PDF → 이미지 변환',
+      'image-resize': '이미지 리사이즈',
+      'image-compress': '이미지 압축',
+      'encoding-convert': '인코딩 변환',
+      'format-convert': '포맷 변환',
+      'pdf-merge': 'PDF 결합',
+      'pdf-split': 'PDF 분할',
+      'video-audio-extract': '음성 추출',
+      'media-convert': '미디어 변환'
+    };
+    return labels[type as keyof typeof labels] || type;
+  }, []);
   
   // 완료된 작업 감지
   useEffect(() => {
@@ -36,57 +51,77 @@ export default function CompletionToast() {
         }, 3000);
       }
     });
-  }, [tasks]);
+  }, [tasks, toasts]);
   
-  const getTaskTypeLabel = (type: string) => {
-    const labels = {
-      'pdf-to-image': 'PDF → 이미지 변환',
-      'image-resize': '이미지 리사이즈',
-      'image-compress': '이미지 압축',
-      'encoding-convert': '인코딩 변환',
-      'format-convert': '포맷 변환',
-      'pdf-merge': 'PDF 결합',
-      'pdf-split': 'PDF 분할',
-      'video-audio-extract': '음성 추출',
-      'media-convert': '미디어 변환'
-    };
-    return labels[type as keyof typeof labels] || type;
-  };
+  const handleToastClick = useCallback((toastId: string) => {
+    setToasts(prev => prev.filter(t => t.id !== toastId));
+  }, []);
+  
+  const handleCloseClick = useCallback((e: React.MouseEvent, toastId: string) => {
+    e.stopPropagation();
+    setToasts(prev => prev.filter(t => t.id !== toastId));
+  }, []);
   
   if (toasts.length === 0) return null;  
+  
   return (
     <div className={styles.container}>
       {toasts.map(toast => (
-        <div 
-          key={toast.id} 
-          className={styles.toast}
-          onClick={() => setToasts(prev => prev.filter(t => t.id !== toast.id))}
-        >
-          <div className={styles.icon}>✅</div>
-          <div className={styles.content}>
-            <div className={styles.title}>
-              {getTaskTypeLabel(toast.task.type)} 완료
-            </div>
-            <div className={styles.filename}>
-              {toast.task.filename}
-            </div>
-            {toast.task.totalFiles && toast.task.totalFiles > 1 && (
-              <div className={styles.fileCount}>
-                {toast.task.totalFiles}개 파일 처리 완료
-              </div>
-            )}
-          </div>
-          <button 
-            className={styles.closeBtn}
-            onClick={(e) => {
-              e.stopPropagation();
-              setToasts(prev => prev.filter(t => t.id !== toast.id));
-            }}
-          >
-            ×
-          </button>
-        </div>
+        <ToastItem 
+          key={toast.id}
+          toast={toast}
+          getTaskTypeLabel={getTaskTypeLabel}
+          onClose={handleCloseClick}
+          onClick={handleToastClick}
+        />
       ))}
     </div>
   );
 }
+
+interface ToastItemProps {
+  toast: ToastItem;
+  getTaskTypeLabel: (type: string) => string;
+  onClose: (e: React.MouseEvent, toastId: string) => void;
+  onClick: (toastId: string) => void;
+}
+
+const ToastItem = function ToastItem({ toast, getTaskTypeLabel, onClose, onClick }: ToastItemProps) {
+  const taskTypeLabel = useMemo(() => getTaskTypeLabel(toast.task.type), [toast.task.type, getTaskTypeLabel]);
+  
+  const handleClick = useCallback(() => {
+    onClick(toast.id);
+  }, [toast.id, onClick]);
+  
+  const handleClose = useCallback((e: React.MouseEvent) => {
+    onClose(e, toast.id);
+  }, [toast.id, onClose]);
+  
+  return (
+    <div 
+      className={styles.toast}
+      onClick={handleClick}
+    >
+      <div className={styles.icon}>✅</div>
+      <div className={styles.content}>
+        <div className={styles.title}>
+          {taskTypeLabel} 완료
+        </div>
+        <div className={styles.filename}>
+          {toast.task.filename}
+        </div>
+        {toast.task.totalFiles && toast.task.totalFiles > 1 && (
+          <div className={styles.fileCount}>
+            {toast.task.totalFiles}개 파일 처리 완료
+          </div>
+        )}
+      </div>
+      <button 
+        className={styles.closeBtn}
+        onClick={handleClose}
+      >
+        ×
+      </button>
+    </div>
+  );
+};

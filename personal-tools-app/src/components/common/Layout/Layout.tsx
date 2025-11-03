@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useMemo, useCallback } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAppStore } from '@/stores/appStore';
 import PWAInstallButton from '@/components/PWAInstallButton/PWAInstallButton';
@@ -14,12 +14,16 @@ export default function Layout({ children }: LayoutProps) {
   const location = useLocation();
   const { isOnline, theme, toggleTheme } = useAppStore();
 
-  const navItems = [
+  const navItems = useMemo(() => [
     { path: '/', label: '홈', icon: '🏠' },
     { path: '/file-tools', label: '파일 도구', icon: '📁' },
     { path: '/image-tools', label: '이미지 도구', icon: '🖼️' },
     { path: '/video-tools', label: '영상 도구', icon: '🎬' },
-  ];
+  ], []);
+
+  const handleThemeToggle = useCallback(() => {
+    toggleTheme();
+  }, [toggleTheme]);
 
   return (
     <div className={styles.layout}>
@@ -55,7 +59,7 @@ export default function Layout({ children }: LayoutProps) {
             <PWAInstallButton />
             
             <button
-              onClick={toggleTheme}
+              onClick={handleThemeToggle}
               className={styles.themeToggle}
               aria-label="테마 변경"
             >

@@ -13,10 +13,14 @@ import PdfSplit from '@/pages/PdfTools/PdfSplit/PdfSplit';
 import ImageCompress from '@/pages/ImageTools/ImageCompress/ImageCompress';
 import ImageResize from '@/pages/ImageTools/ImageResize/ImageResize';
 import ImageFormatConverter from '@/pages/ImageTools/ImageFormatConverter/ImageFormatConverter';
+import ImageOptimization from '@/pages/ImageTools/ImageOptimization/ImageOptimization';
+import ImageMetadataEditor from '@/pages/ImageTools/ImageMetadataEditor/ImageMetadataEditor';
 import TextEncoding from '@/pages/FileTools/TextEncoding/TextEncoding';
 import FormatConverter from '@/pages/FileTools/FormatConverter/FormatConverter';
 import DocumentToPdf from '@/pages/FileTools/DocumentToPdf/DocumentToPdf';
-// import ImageBatchProcessor from '@/pages/ImageTools/ImageBatchProcessor/ImageBatchProcessor';
+import ZipCompress from '@/pages/FileTools/ZipCompress/ZipCompress';
+import BatchFileProcessor from '@/pages/FileTools/BatchFileProcessor/BatchFileProcessor';
+import ImageBatchProcessor from '@/pages/ImageTools/ImageBatchProcessor/ImageBatchProcessor';
 import '@/styles/globals.css';
 
 function App() {
@@ -56,10 +60,14 @@ function App() {
           <Route path="/image-compress" element={<ImageCompress />} />
           <Route path="/image-resize" element={<ImageResize />} />
           <Route path="/image-format-converter" element={<ImageFormatConverter />} />
+          <Route path="/image-optimization" element={<ImageOptimization />} />
+          <Route path="/image-metadata-editor" element={<ImageMetadataEditor />} />
           <Route path="/text-encoding" element={<TextEncoding />} />
           <Route path="/format-converter" element={<FormatConverter />} />
           <Route path="/document-to-pdf" element={<DocumentToPdf />} />
-          {/* <Route path="/image-batch-processor" element={<ImageBatchProcessor />} /> */}
+          <Route path="/zip-compress" element={<ZipCompress />} />
+          <Route path="/batch-file-processor" element={<BatchFileProcessor />} />
+          <Route path="/image-batch-processor" element={<ImageBatchProcessor />} />
           </Routes>
         </Layout>
       </Router>

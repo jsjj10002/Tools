@@ -42,7 +42,7 @@ export default function ImageTools() {
       description: '여러 이미지를 동시에 처리합니다. 압축, 리사이즈, 포맷 변환 일괄 적용',
       icon: '📦',
       path: '/image-batch-processor',
-      status: 'coming-soon'
+      status: 'available'
     },
     {
       id: 'image-optimization',
@@ -50,7 +50,7 @@ export default function ImageTools() {
       description: '웹용 이미지 최적화, 메타데이터 제거, 품질 조정을 통한 종합 최적화',
       icon: '⚡',
       path: '/image-optimization',
-      status: 'coming-soon'
+      status: 'available'
     },
     {
       id: 'image-metadata-editor',
@@ -58,7 +58,7 @@ export default function ImageTools() {
       description: 'EXIF 데이터 조회, 편집, 제거 기능. 개인정보 보호를 위한 메타데이터 정리',
       icon: '🏷️',
       path: '/image-metadata-editor',
-      status: 'coming-soon'
+      status: 'available'
     }
   ];
 

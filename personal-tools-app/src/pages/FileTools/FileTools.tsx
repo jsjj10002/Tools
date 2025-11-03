@@ -63,10 +63,10 @@ export default function FileTools() {
     {
       id: 'file-compress',
       title: '파일 압축/해제',
-      description: 'ZIP, RAR 등 압축 파일 생성 및 해제. 패스워드 보호 및 압축률 조정 가능',
+      description: 'ZIP 파일 생성 및 해제. 패스워드 보호 및 압축률 조정 가능',
       icon: '🗜️',
-      path: '/file-compress',
-      status: 'coming-soon'
+      path: '/zip-compress',
+      status: 'available'
     },
     {
       id: 'batch-file-processor',
@@ -74,7 +74,7 @@ export default function FileTools() {
       description: '여러 파일을 동시에 처리합니다. 이름 변경, 포맷 변환, 압축 등 일괄 작업',
       icon: '📦',
       path: '/batch-file-processor',
-      status: 'coming-soon'
+      status: 'available'
     }
   ];
 

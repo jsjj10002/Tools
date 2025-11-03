@@ -20,19 +20,11 @@ interface ImageFile {
   };
 }
 
-interface MetadataField {
-  key: string;
-  label: string;
-  value: any;
-  editable: boolean;
-  category: string;
-}
-
 export default function ImageMetadataEditor() {
   const [imageFiles, setImageFiles] = useState<ImageFile[]>([]);
   const [selectedImageId, setSelectedImageId] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
-  const { addTask, updateTask, updateTaskProgress } = useTaskStore();
+  const { addTask, updateTask } = useTaskStore();
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const validFiles = acceptedFiles.filter(file => 

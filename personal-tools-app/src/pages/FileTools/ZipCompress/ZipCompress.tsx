@@ -99,7 +99,7 @@ export default function ZipCompress() {
           compressionOptions: { level: 6 }
         },
         (metadata) => {
-          updateTaskProgress(taskId, metadata.percent);
+          updateTaskProgress({ taskId, progress: metadata.percent });
         }
       );
 

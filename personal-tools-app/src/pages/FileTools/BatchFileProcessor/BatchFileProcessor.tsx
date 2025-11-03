@@ -36,7 +36,7 @@ export default function BatchFileProcessor() {
   const { addTask, updateTask, updateTaskProgress } = useTaskStore();
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
-    const newFiles: FileItem[] = acceptedFiles.map((file, index) => ({
+    const newFiles: FileItem[] = acceptedFiles.map((file) => ({
       id: crypto.randomUUID(),
       file,
       originalName: file.name,
@@ -148,7 +148,7 @@ export default function BatchFileProcessor() {
     });
 
     try {
-      const processedFiles: { file: File; name: string }[] = [];
+      const processedFiles: { file: File | Blob; name: string }[] = [];
 
       for (let i = 0; i < files.length; i++) {
         const fileItem = files[i];
@@ -163,7 +163,7 @@ export default function BatchFileProcessor() {
         });
 
         try {
-          let currentFile = fileItem.file;
+          let currentFile: File | Blob = fileItem.file;
           let currentName = fileItem.originalName;
 
           // 파일명 변경
@@ -174,7 +174,9 @@ export default function BatchFileProcessor() {
           // 포맷 변환
           if (operation.convert && operation.convertFormat) {
             try {
-              currentFile = await convertFile(currentFile, operation.convertFormat);
+              const convertedBlob = await convertFile(fileItem.file, operation.convertFormat);
+              // Blob을 File로 변환
+              currentFile = new File([convertedBlob], currentName, { type: convertedBlob.type });
               const nameWithoutExt = currentName.replace(/\.[^/.]+$/, '');
               currentName = `${nameWithoutExt}.${operation.convertFormat}`;
             } catch (error) {
@@ -182,7 +184,7 @@ export default function BatchFileProcessor() {
             }
           }
 
-          processedFiles.push({ file: currentFile, name: currentName });
+          processedFiles.push({ file: currentFile as File, name: currentName });
 
           setFiles(prev => prev.map(f => 
             f.id === fileItem.id 
